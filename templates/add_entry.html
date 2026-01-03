@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="vintage-card">
+            <h2 class="mb-4 text-center">📝 New Learning Entry</h2>
+            <form action="{{ url_for('add_entry') }}" method="POST">
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Title / Question</label>
+                    <input type="text" name="title" class="form-control" placeholder="e.g., What is Polymorphism?" required>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">Category</label>
+                        <input list="categories" name="category" class="form-control" placeholder="Type or select..." required>
+                        <datalist id="categories">
+                            {% for cat in categories %}
+                            <option value="{{ cat.name }}">
+                            {% endfor %}
+                        </datalist>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">Initial Difficulty</label>
+                        <select name="difficulty" class="form-select">
+                            <option value="easy">Easy</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="hard">Hard</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Short Summary / Answer (For Alarm)</label>
+                    <input type="text" name="summary" class="form-control" placeholder="Keywords for quick recall..." required>
+                    <small class="text-muted">This will be the answer key for your active alarm.</small>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Detailed Notes</label>
+                    <textarea name="content" class="form-control" rows="6" placeholder="Deep dive explanations..."></textarea>
+                </div>
+
+                <div class="text-end">
+                    <a href="{{ url_for('vault') }}" class="btn btn-outline-secondary me-2">Cancel</a>
+                    <button type="submit" class="btn btn-vintage px-4">Save to Vault</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

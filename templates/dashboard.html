@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+    <!-- Kolom Kiri: Stats & Heatmap -->
+    <div class="col-md-8">
+        <div class="vintage-card">
+            <h2>👋 Hello, Learner.</h2>
+            <p class="handwritten text-muted">"Discipline is choosing between what you want now and what you want most."</p>
+            <hr>
+            
+            <!-- Statistik Utama -->
+            <div class="d-flex justify-content-between text-center mb-4">
+                <div class="p-3">
+                    <h1 class="display-4 fw-bold text-danger">{{ due }}</h1>
+                    <small class="text-uppercase fw-bold text-secondary">Reviews Due</small>
+                </div>
+                <div class="p-3 border-start border-end">
+                    <h1 class="display-4 fw-bold text-primary">{{ total }}</h1>
+                    <small class="text-uppercase fw-bold text-secondary">Total Notes</small>
+                </div>
+                <div class="p-3">
+                    <h1 class="display-4 fw-bold text-warning">🔥</h1>
+                    <small class="text-uppercase fw-bold text-secondary">Keep Streak</small>
+                </div>
+            </div>
+
+            <a href="{{ url_for('review_session') }}" class="btn btn-vintage w-100 py-3 fs-5">🚀 Start Daily Review</a>
+        </div>
+
+        <!-- Heatmap Consistency Section -->
+        <div class="vintage-card mt-4">
+            <h5 class="mb-3">📅 Learning Consistency (Last 30 Days)</h5>
+            <div class="d-flex flex-wrap" style="gap: 4px;">
+                {% for date, count in heatmap.items() %}
+                <div title="{{ date }}: {{ count }} items" 
+                     data-bs-toggle="tooltip"
+                     style="
+                        width: 18px; 
+                        height: 18px; 
+                        border-radius: 3px; 
+                        background-color: {{ '#ebedf0' if count == 0 else '#9be9a8' if count < 2 else '#40c463' if count < 4 else '#216e39' }};
+                        border: 1px solid rgba(27, 31, 35, 0.06);
+                     ">
+                </div>
+                {% endfor %}
+            </div>
+            <small class="text-muted mt-2 d-block text-end" style="font-size: 0.8rem;">Less <span style="display:inline-block; width:10px; height:10px; background:#ebedf0;"></span> <span style="display:inline-block; width:10px; height:10px; background:#216e39;"></span> More</small>
+        </div>
+    </div>
+    
+    <!-- Kolom Kanan: Reflection & Settings -->
+    <div class="col-md-4">
+        <div class="vintage-card" style="background-color: #f1f8e9; border-color: #c5e1a5;">
+            <h5 class="fw-bold">📝 Today's Reflection</h5>
+            <textarea class="form-control handwritten" rows="5" placeholder="What is one new thing I understood today? What confused me?" style="background: transparent; border: none; border-bottom: 2px dashed #aed581; resize: none;"></textarea>
+        </div>
+        
+        <!-- Tombol simulasi setting alarm -->
+        <div class="vintage-card mt-3">
+            <h5 class="fw-bold">⏰ Active Reminder</h5>
+            <p class="small text-muted">Set a timer. When it rings, you MUST answer a question to dismiss it.</p>
+            <div class="input-group mb-3">
+                <input type="number" id="alarm-timer" class="form-control" value="10" min="5">
+                <span class="input-group-text">sec</span>
+            </div>
+            <button onclick="setAlarm()" class="btn btn-outline-dark w-100">Set Timer</button>
+        </div>
+    </div>
+</div>
+
+<!-- Script tambahan untuk tooltip heatmap -->
+<script>
+    // Aktifkan Bootstrap tooltip jika mau
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+</script>
+{% endblock %}

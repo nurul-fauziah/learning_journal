@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container text-center" style="max-width: 600px;">
+    <h2 class="mb-4 handwritten">🧠 Review Session</h2>
+
+    <!-- Cek apakah ada materi yang perlu direview -->
+    {% if entries|length == 0 %}
+    <div class="vintage-card p-5">
+        <h3>All Caught Up! 🎉</h3>
+        <p>No reviews due for now. Go learn something new!</p>
+        <a href="{{ url_for('dashboard') }}" class="btn btn-vintage">Back Home</a>
+    </div>
+    {% else %}
+
+    <div id="flashcard-container">
+        <!-- Loop Cards (Hanya kartu pertama yang muncul 'block', sisanya 'none') -->
+        {% for entry in entries %}
+        <div class="flashcard vintage-card p-5" id="card-{{ loop.index }}" style="display: {{ 'block' if loop.first else 'none' }};">
+            
+            <div class="d-flex justify-content-between mb-3">
+                <span class="badge bg-secondary">{{ entry.category.name }}</span>
+                <small class="text-muted">#{{ loop.index }} of {{ entries|length }}</small>
+            </div>
+            
+            <h3 class="mb-4 fw-bold" style="color: #3e2723;">{{ entry.title }}</h3>
+            
+            <!-- Hidden Answer Section -->
+            <div class="answer-section" id="answer-{{ loop.index }}" style="display: none;">
+                <hr style="border-top: 2px dashed #cfc2a5;">
+                
+                <div class="bg-light p-3 rounded text-start border mb-3">
+                    <p class="fs-5 fw-bold text-success mb-1">Key Answer:</p>
+                    <p class="mb-2">{{ entry.summary }}</p>
+                    <small class="text-muted fst-italic">{{ entry.content }}</small>
+                </div>
+                
+                <p class="mt-3 small text-uppercase fw-bold text-muted">How well did you know this?</p>
+                
+                <div class="btn-group w-100" role="group">
+                    <!-- Perhatikan tanda kutip '' di dalam onclick untuk mencegah error VS Code -->
+                    <button type="button" onclick="rateCard('{{ entry.id }}', 'hard', '{{ loop.index }}')" class="btn btn-outline-danger">
+                        Hard 😓
+                    </button>
+                    <button type="button" onclick="rateCard('{{ entry.id }}', 'medium', '{{ loop.index }}')" class="btn btn-outline-warning">
+                        Medium 🤔
+                    </button>
+                    <button type="button" onclick="rateCard('{{ entry.id }}', 'easy', '{{ loop.index }}')" class="btn btn-outline-success">
+                        Easy 🤩
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tombol Show Answer -->
+            <button id="btn-show-{{ loop.index }}" onclick="showAnswer('{{ loop.index }}')" class="btn btn-vintage mt-3 w-50">
+                Show Answer
+            </button>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Layar Selesai -->
+    <div id="session-complete" style="display: none;" class="vintage-card p-5">
+        <h1 class="display-1">✅</h1>
+        <h3>Session Complete!</h3>
+        <p>Great job maintaining your discipline.</p>
+        <a href="{{ url_for('dashboard') }}" class="btn btn-vintage mt-3">Back to Dashboard</a>
+    </div>
+
+    {% endif %}
+</div>
+
+<script>
+// Fungsi untuk menampilkan jawaban
+function showAnswer(indexStr) {
+    const index = parseInt(indexStr); // Ubah string ke number
+    document.getElementById(`answer-${index}`).style.display = 'block';
+    document.getElementById(`btn-show-${index}`).style.display = 'none';
+}
+
+// Fungsi untuk menilai kartu dan pindah ke kartu selanjutnya
+function rateCard(idStr, quality, indexStr) {
+    const entryId = parseInt(idStr);
+    const currentIndex = parseInt(indexStr);
+    
+    // Kirim data ke Backend (Flask)
+    fetch(`/api/mark_reviewed/${entryId}`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ quality: quality })
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log("Review saved:", data);
+
+        // UI Logic: Sembunyikan kartu saat ini
+        const currentCard = document.getElementById(`card-${currentIndex}`);
+        if(currentCard) {
+            currentCard.style.display = 'none';
+        }
+
+        // UI Logic: Tampilkan kartu selanjutnya
+        const nextCard = document.getElementById(`card-${currentIndex + 1}`);
+        if (nextCard) {
+            nextCard.style.display = 'block';
+        } else {
+            // Jika tidak ada kartu lagi, tampilkan layar selesai
+            document.getElementById('session-complete').style.display = 'block';
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Something went wrong saving your progress.');
+    });
+}
+</script>
+{% endblock %}

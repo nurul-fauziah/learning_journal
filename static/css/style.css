@@ -1,0 +1,78 @@
+:root {
+    --bg-paper: #f4e4bc;
+    --text-brown: #5d4037;
+    --dusty-blue: #78909c;
+    --sage-green: #8d9984;
+    --accent-red: #d7ccc8;
+    --line-color: #cfc2a5;
+}
+
+body {
+    background-color: var(--bg-paper);
+    background-image: linear-gradient(var(--line-color) 1px, transparent 1px);
+    background-size: 100% 2rem; /* Efek garis buku tulis */
+    color: var(--text-brown);
+    font-family: 'Georgia', serif; /* Font klasik */
+    line-height: 2rem; /* Menyesuaikan garis */
+}
+
+/* Custom Card ala Kertas Notes */
+.vintage-card {
+    background: #fffdf5;
+    border: 1px solid #dcdcdc;
+    box-shadow: 3px 3px 5px rgba(0,0,0,0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 2px;
+    position: relative;
+}
+
+/* Efek selotip di atas kertas */
+.vintage-card::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 25px;
+    background-color: rgba(255, 255, 255, 0.4);
+    border-left: 1px dashed rgba(0,0,0,0.1);
+    border-right: 1px dashed rgba(0,0,0,0.1);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+h1, h2, h3 {
+    font-family: 'Courier New', monospace; /* Ala mesin tik */
+    font-weight: bold;
+    color: #3e2723;
+}
+
+.btn-vintage {
+    background-color: var(--dusty-blue);
+    color: white;
+    border: none;
+    font-family: 'Courier New', monospace;
+    letter-spacing: 1px;
+    box-shadow: 2px 2px 0px #455a64;
+    transition: transform 0.1s;
+}
+
+.btn-vintage:active {
+    transform: translate(2px, 2px);
+    box-shadow: none;
+}
+
+/* Alarm Overlay */
+#alarm-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(62, 39, 35, 0.95);
+    z-index: 9999;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    text-align: center;
+}
