@@ -29,6 +29,7 @@
 Most note-taking tools are either sterile corporate dashboards or messy text files where forgotten insights go to die.
 
 **Studio Bohème** reimagines your personal learning log as a warm, soulful botanical atelier. It bridges cognitive retention science (**Ebbinghaus Spaced Repetition + Active Recall**) with intentional, anti-slop art direction inspired by Matisse cut-outs, flat arch shapes, and earthy risograph palettes.
+<img width="1880" height="946" alt="image" src="https://github.com/user-attachments/assets/ace705e5-bfa6-412c-8597-f2f9ede185ab" />
 
 ---
 
