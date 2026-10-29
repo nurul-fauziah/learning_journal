@@ -1,5 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
-from datetime import datetime, timedelta
+from datetime import datetime, date
 
 db = SQLAlchemy()
 
@@ -10,19 +10,19 @@ class Category(db.Model):
 
 class Entry(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(100), nullable=False)
+    title = db.Column(db.String(150), nullable=False)
     content = db.Column(db.Text, nullable=False) # Detail materi
-    summary = db.Column(db.String(200)) # Ringkasan/Jawaban singkat
+    summary = db.Column(db.String(250), nullable=False) # Ringkasan / Kunci jawaban
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=False)
-    difficulty = db.Column(db.String(20)) # Easy, Medium, Hard
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    difficulty = db.Column(db.String(20), default='medium') # easy, medium, hard
+    created_at = db.Column(db.DateTime, default=datetime.now)
     
     # Spaced Repetition Fields
     review_count = db.Column(db.Integer, default=0)
-    next_review = db.Column(db.DateTime, default=datetime.utcnow)
+    next_review = db.Column(db.DateTime, default=datetime.now)
     
 class Reflection(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    date = db.Column(db.Date, default=datetime.utcnow().date, unique=True)
+    date = db.Column(db.Date, default=date.today, unique=True)
     learned_today = db.Column(db.Text)
     confused_about = db.Column(db.Text)

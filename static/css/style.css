@@ -1,57 +1,57 @@
 /* ==========================================================================
-   ACANTHUS DESIGN SYSTEM — Bibliotheca & Botanical Manuscript
-   Palette: Indigo Navy, Sage Green, Antique Gold, Dusty Rose, Cream Paper
-   Typography: Cormorant Garamond & EB Garamond
+   BOHEMIAN DESIGN SYSTEM — Sunlit Studio & Earthy Botanical
+   Palette: Terracotta, Sage Green, Forest Green, Mustard, Blush, Oat, Aubergine
+   Typography: Fraunces (Groovy Display Serif) & Karla (Warm Readable Sans)
    ========================================================================== */
 
 :root {
-    /* Palette Tokens */
-    --color-navy: #1f2a44;
-    --color-navy-deep: #141b2c;
-    --color-navy-soft: #2d3b5b;
-    --color-sage: #556f50;
-    --color-sage-deep: #3c5238;
-    --color-sage-muted: #799175;
-    --color-sage-light: #e5ece3;
-    --color-gold: #c19b4e;
-    --color-gold-deep: #9d7b32;
-    --color-gold-muted: #7d6023;
-    --color-gold-glow: rgba(193, 155, 78, 0.22);
-    --color-rose: #b27371;
-    --color-rose-deep: #8c4e4c;
+    /* Bohemian Palette Tokens (Risograph / Screen-Print Inspired) */
+    --bg-oat: #f3e9da;
+    --bg-card: #fdf8f0;
+    --bg-card-alt: #f6ebd8;
+    --bg-arch-light: #fbeee1;
 
-    /* Ground / Canvas */
-    --bg-paper: #f6f1e7;
-    --bg-card: #fcf9f2;
-    --bg-card-inner: #f1ebd8;
-    --bg-card-highlight: #fbf6ec;
+    --color-terracotta: #c8704f;
+    --color-terracotta-dark: #a95636;
+    --color-terracotta-light: #df8f72;
 
-    /* Ink & Contrast */
-    --text-ink: #1a2233;
-    --text-ink-secondary: #4a5468;
-    --text-ink-muted: #6b7588;
+    --color-sage: #9aa68a;
+    --color-sage-light: #c2cdb7;
+    --color-sage-soft: #e5ece0;
 
-    /* Borders & Cartouche Frames */
-    --border-cartouche: #c9b48c;
-    --border-cartouche-inner: #ded2ba;
-    --border-hairline: #e6dcbe;
+    --color-forest: #3f5b48;
+    --color-forest-dark: #2a3e31;
 
-    /* Heatmap Levels (Cream -> Sage -> Deep Olive/Gold) */
-    --heat-0: #ece4d2;
-    --heat-1: #a9c0a6;
-    --heat-2: #5f7c5a;
-    --heat-3: #2c4a2a;
+    --color-mustard: #e0a23b;
+    --color-mustard-light: #f5c873;
+
+    --color-blush: #e8b79a;
+    --color-blush-soft: #f4d9ca;
+
+    --color-aubergine: #4a2c2a;
+    --color-aubergine-dark: #321c1a;
+    --color-aubergine-muted: #735452;
+
+    /* Heatmap Scale: Oat -> Blush -> Mustard -> Terracotta -> Forest */
+    --heat-0: #e7dac7;
+    --heat-1: #e8b79a;
+    --heat-2: #e0a23b;
+    --heat-3: #c8704f;
+    --heat-4: #3f5b48;
+
+    /* Borders & Outlines */
+    --border-boho: #4a2c2a;
+    --border-subtle: #d6c6b0;
 
     /* Typography */
-    --font-heading: 'Cormorant Garamond', Garamond, 'Times New Roman', serif;
-    --font-body: 'EB Garamond', Georgia, serif;
+    --font-display: 'Fraunces', Georgia, serif;
+    --font-body: 'Karla', system-ui, sans-serif;
 }
 
-/* Base Canvas & Background Repeat Pattern (<6% opacity William Morris Foliage) */
-body.acanthus-body {
-    background-color: var(--bg-paper);
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='%23685635' fill-opacity='0.045'%3E%3Cpath d='M60 12c-8 12-22 18-36 14 10 12 10 28 0 40 16-2 30 6 36 20 6-14 20-22 36-20-10-12-10-28 0-40-14 4-28-2-36-14zM24 84c-6 8-16 12-24 10 8 8 8 20 0 28 12-2 22 4 24 14 4-10 14-16 24-14-8-8-8-20 0-28-8 2-18-2-24-10zM96 84c-6 8-16 12-24 10 8 8 8 20 0 28 12-2 22 4 24 14 4-10 14-16 24-14-8-8-8-20 0-28-8 2-18-2-24-10z'/%3E%3Ccircle cx='60' cy='60' r='3'/%3E%3C/g%3E%3C/svg%3E");
-    color: var(--text-ink);
+/* Base Body with Paper Texture */
+body.boho-body {
+    background-color: var(--bg-oat);
+    color: var(--color-aubergine);
     font-family: var(--font-body);
     font-size: 1.0625rem;
     line-height: 1.6;
@@ -62,314 +62,339 @@ body.acanthus-body {
     -webkit-font-smoothing: antialiased;
 }
 
-/* Classical Headings */
-h1, h2, h3, h4, h5, h6,
-.serif-heading {
-    font-family: var(--font-heading);
-    color: var(--color-navy);
-    font-weight: 600;
-    letter-spacing: -0.01em;
-    line-height: 1.2;
+/* Subtle SVG Paper Grain Overlay */
+.boho-grain-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    filter: url(#boho-grain);
+    opacity: 0.05;
+    pointer-events: none;
+    z-index: 100;
 }
 
-/* Page Corner Flourishes (Desktop Engraved Accents) */
-.page-corner {
+/* Matisse-Style Cut-Out Leaves at Screen Margins */
+.boho-page-leaf {
     position: fixed;
-    z-index: 99;
+    z-index: 1;
     pointer-events: none;
+    transition: transform 0.3s ease;
 }
-.page-corner-tl { top: 12px; left: 12px; }
-.page-corner-tr { top: 12px; right: 12px; }
+.boho-leaf-top-right {
+    top: 0;
+    right: 0;
+}
+.boho-leaf-bottom-left {
+    bottom: 0;
+    left: 0;
+}
 
 @media (max-width: 991px) {
-    .page-corner { display: none; }
+    .boho-page-leaf {
+        display: none;
+    }
 }
 
-/* Header & Navigation Bar */
-.acanthus-header {
-    background-color: var(--color-navy-deep);
-    border-bottom: 2px solid var(--color-gold);
-    box-shadow: 0 4px 12px rgba(20, 27, 44, 0.15);
+/* Typography Hierarchy */
+h1, h2, h3, h4, h5, h6,
+.boho-headline {
+    font-family: var(--font-display);
+    color: var(--color-aubergine);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+}
+
+.boho-subheading {
+    font-family: var(--font-display);
+    color: var(--color-aubergine);
+    font-weight: 700;
+}
+
+/* Header & Bohemian Studio Navbar */
+.boho-header {
+    background-color: var(--bg-card);
+    border-bottom: 2.5px solid var(--border-boho);
+    box-shadow: 0 4px 0px rgba(74, 44, 42, 0.06);
     position: relative;
     z-index: 50;
 }
 
-.acanthus-navbar {
-    padding: 0.85rem 0;
+.boho-navbar {
+    padding: 0.9rem 0;
 }
 
-.acanthus-navbar .brand-title {
-    font-family: var(--font-heading);
-    font-size: 1.5rem;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    color: var(--bg-card);
-    text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+.boho-navbar .brand-title {
+    font-family: var(--font-display);
+    font-size: 1.55rem;
+    font-weight: 800;
+    color: var(--color-aubergine);
+    letter-spacing: -0.02em;
 }
 
-.acanthus-nav-link {
-    font-family: var(--font-heading);
-    font-size: 1.05rem;
-    font-variant-caps: all-small-caps;
-    letter-spacing: 0.14em;
-    color: #ded6c2 !important;
-    position: relative;
-    padding: 0.4rem 0 !important;
-    transition: color 0.2s ease;
-}
-
-.acanthus-nav-link:hover,
-.acanthus-nav-link:focus-visible {
-    color: var(--color-gold) !important;
-}
-
-.acanthus-nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 1px;
-    background-color: var(--color-gold);
-    transition: width 0.25s ease;
-}
-
-.acanthus-nav-link:hover::after,
-.acanthus-nav-link:focus-visible::after {
-    width: 100%;
-}
-
-.acanthus-nav-border {
-    height: 3px;
-    background: linear-gradient(90deg, 
-        transparent 0%, 
-        var(--color-gold-deep) 15%, 
-        var(--color-gold) 50%, 
-        var(--color-gold-deep) 85%, 
-        transparent 100%);
-    opacity: 0.8;
-}
-
-/* ==========================================================================
-   CARTOUCHE CARD FRAME (Double-line engraved plate aesthetic)
-   ========================================================================== */
-.cartouche-card {
-    background-color: var(--bg-card);
-    border: 1px solid var(--border-cartouche);
-    outline: 1px solid var(--border-cartouche-inner);
-    outline-offset: -6px;
-    box-shadow: 
-        0 2px 4px rgba(50, 40, 20, 0.04),
-        0 6px 18px rgba(31, 42, 68, 0.06);
-    position: relative;
-    transition: box-shadow 0.25s ease, border-color 0.25s ease;
-}
-
-.cartouche-card:hover {
-    box-shadow: 
-        0 4px 8px rgba(50, 40, 20, 0.06),
-        0 10px 24px rgba(31, 42, 68, 0.09);
-    border-color: var(--color-gold);
-}
-
-/* Symmetrical Cartouche Corner Accents */
-.cartouche-card::before,
-.cartouche-card::after {
-    content: '❖';
-    position: absolute;
-    font-size: 8px;
-    color: var(--color-gold);
-    line-height: 1;
-    pointer-events: none;
-}
-.cartouche-card::before { top: 9px; left: 9px; }
-.cartouche-card::after { bottom: 9px; right: 9px; }
-
-/* Dashboard Typography & Salutation */
-.dashboard-greeting-header .serif-heading {
-    color: var(--color-navy);
-    font-size: 1.85rem;
-}
-
-.acanthus-quote {
-    font-family: var(--font-heading);
-    font-style: italic;
-    font-size: 1.15rem;
-    color: var(--text-ink-secondary);
-    padding-left: 1.25rem;
-    border-left: 2px solid var(--color-gold);
-    line-height: 1.45;
-}
-
-.acanthus-icon-badge {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 36px;
-    height: 36px;
-    background-color: var(--bg-card-inner);
-    border: 1px solid var(--border-cartouche);
-    color: var(--color-navy);
-    border-radius: 50%;
-    flex-shrink: 0;
-}
-
-/* Ornate Separator */
-.ornate-separator {
+.boho-brand-icon {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 12px;
 }
-.ornate-separator .sep-line {
-    flex: 1;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--border-cartouche), transparent);
+
+.boho-nav-link {
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--color-aubergine) !important;
+    padding: 0.4rem 0.6rem !important;
+    position: relative;
+    transition: color 0.2s ease, transform 0.15s ease;
 }
-.ornate-separator .sep-gem {
-    font-size: 11px;
-    color: var(--color-gold);
+
+.boho-nav-link:hover,
+.boho-nav-link:focus-visible {
+    color: var(--color-terracotta) !important;
+    transform: translateY(-1px);
 }
 
 /* ==========================================================================
-   STATISTICS TRIPTYCH (Dignified Classical Columns)
+   BOHEMIAN ARCH CARDS & PEBBLE BLOBS
    ========================================================================== */
-.stats-triptych {
-    background-color: var(--bg-card-inner);
-    border: 1px solid var(--border-cartouche-inner);
-    padding: 0.5rem 0;
-    margin-left: 0;
-    margin-right: 0;
-}
-
-.stat-cell {
+.boho-card {
+    background-color: var(--bg-card);
+    border: 2.5px solid var(--border-boho);
+    border-radius: 24px;
+    box-shadow: 4px 4px 0px var(--border-boho);
     position: relative;
+    z-index: 10;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.stat-cell-middle {
-    border-left: 1px solid var(--border-cartouche);
-    border-right: 1px solid var(--border-cartouche);
+.boho-card:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px var(--border-boho);
+}
+
+/* Arched Top Hero Card */
+.boho-hero-card {
+    border-radius: 48px 48px 24px 24px;
+}
+
+/* Arched Window Reflection Card */
+.boho-arch-card {
+    border-radius: 100px 100px 24px 24px;
+    background-color: var(--bg-arch-light);
+}
+
+/* Organic Pebble Background Blob */
+.boho-blob-shape {
+    position: absolute;
+    pointer-events: none;
+    z-index: 0;
+    border-radius: 54% 46% 70% 30% / 49% 60% 40% 51%;
+    background-color: var(--color-blush-soft);
+    opacity: 0.45;
+}
+
+.boho-blob-hero {
+    width: 260px;
+    height: 180px;
+    top: -30px;
+    right: -40px;
+}
+
+/* Radiating Half-Sun Hero Motif */
+.boho-hero-sun {
+    position: relative;
+    z-index: 2;
+}
+
+.boho-sun-svg {
+    transition: transform 0.5s ease;
+}
+.boho-hero-card:hover .boho-sun-svg {
+    transform: scale(1.05);
+}
+
+/* Greeting Headline & Quote */
+.dashboard-greeting .boho-headline {
+    color: var(--color-aubergine);
+    font-size: 2.25rem;
+}
+
+.boho-quote {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.15rem;
+    color: var(--color-aubergine-muted);
+    max-width: 520px;
+    line-height: 1.45;
+}
+
+.boho-badge-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background-color: var(--color-mustard-light);
+    border: 1.5px solid var(--border-boho);
+    border-radius: 50%;
+    color: var(--color-aubergine);
+}
+
+/* ==========================================================================
+   ARCHED STATISTICS TRIPTYCH
+   ========================================================================== */
+.boho-stats-row {
+    position: relative;
+    z-index: 2;
+}
+
+.boho-stat-arch {
+    background-color: var(--bg-card-alt);
+    border: 2px solid var(--border-boho);
+    border-radius: 36px 36px 14px 14px;
+    box-shadow: 2px 2px 0px var(--border-boho);
+    transition: transform 0.2s ease;
+}
+
+.boho-stat-arch:hover {
+    transform: translateY(-2px);
+}
+
+.boho-stat-arch-forest {
+    background-color: var(--color-sage-soft);
+}
+
+.boho-stat-arch-sun {
+    background-color: #fbf0d8;
 }
 
 .stat-number {
-    font-family: var(--font-heading);
+    font-family: var(--font-display);
     font-size: 2.75rem;
-    font-weight: 700;
+    font-weight: 800;
     line-height: 1;
     margin-bottom: 0.35rem;
-    font-variant-numeric: oldstyle-nums tabular-nums;
 }
 
 .stat-due {
-    color: var(--color-rose-deep);
+    color: var(--color-terracotta);
 }
 
 .stat-total {
-    color: var(--color-navy);
+    color: var(--color-forest);
 }
 
 .stat-streak {
-    min-height: 2.75rem;
+    color: var(--color-mustard);
 }
 
-.stat-label {
-    font-family: var(--font-heading);
-    font-size: 0.8125rem;
-    font-variant-caps: all-small-caps;
-    letter-spacing: 0.16em;
-    color: var(--text-ink-secondary);
-    font-weight: 600;
+.streak-sun-svg {
+    animation: boho-pulse 4s infinite ease-in-out;
+}
+
+@keyframes boho-pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.12); }
+}
+
+.boho-stat-label {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--color-aubergine-muted);
 }
 
 /* ==========================================================================
-   CARTOUCHE BUTTONS (Gilded Library Plaque Style)
+   CHUNKY BOHEMIAN BUTTONS (Flat Print Shadow)
    ========================================================================== */
-.btn-cartouche,
-.btn-cartouche-primary,
-.btn-cartouche-secondary {
-    font-family: var(--font-heading);
-    font-variant-caps: all-small-caps;
-    letter-spacing: 0.14em;
-    font-size: 1.05rem;
-    font-weight: 600;
-    border-radius: 0;
-    padding: 0.65rem 1.4rem;
+.btn-boho-primary,
+.btn-boho-secondary {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    border-radius: 999px;
+    border: 2.5px solid var(--border-boho);
+    padding: 0.85rem 1.75rem;
     position: relative;
-    transition: all 0.2s ease;
     text-decoration: none;
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    box-shadow: 4px 4px 0px var(--border-boho);
+    transition: transform 0.12s ease, box-shadow 0.12s ease, background-color 0.2s ease;
 }
 
-/* Primary Button: Deep Navy with Gilded Gold Border */
-.btn-cartouche-primary {
-    background-color: var(--color-navy);
-    color: #f7f3e8 !important;
-    border: 1px solid var(--color-gold);
-    outline: 1px solid var(--color-gold-deep);
-    outline-offset: -4px;
-    box-shadow: 0 2px 6px rgba(20, 27, 44, 0.2);
-}
-
-.btn-cartouche-primary:hover {
-    background-color: var(--color-navy-deep);
+.btn-boho-primary {
+    background-color: var(--color-terracotta);
     color: #ffffff !important;
-    box-shadow: 
-        0 4px 12px rgba(20, 27, 44, 0.3),
-        0 0 10px var(--color-gold-glow);
-    border-color: #d6b46a;
-    transform: translateY(-1px);
 }
 
-.btn-cartouche-primary:focus-visible {
-    outline: 2px solid var(--color-gold);
-    outline-offset: 2px;
+.btn-boho-primary:hover {
+    background-color: var(--color-terracotta-dark);
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px var(--border-boho);
 }
 
-/* Secondary Button: Parchment Cartouche */
-.btn-cartouche-secondary {
+.btn-boho-primary:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0px var(--border-boho);
+}
+
+.btn-boho-primary:focus-visible,
+.btn-boho-secondary:focus-visible {
+    outline: 2px dashed var(--color-aubergine);
+    outline-offset: 4px;
+}
+
+.btn-boho-secondary {
     background-color: var(--bg-card);
-    color: var(--color-navy) !important;
-    border: 1px solid var(--border-cartouche);
-    outline: 1px solid var(--border-cartouche-inner);
-    outline-offset: -3px;
+    color: var(--color-aubergine) !important;
 }
 
-.btn-cartouche-secondary:hover {
-    background-color: var(--bg-card-inner);
-    color: var(--color-navy-deep) !important;
-    border-color: var(--color-gold);
+.btn-boho-secondary:hover {
+    background-color: var(--bg-card-alt);
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px var(--border-boho);
+}
+
+.btn-boho-secondary:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0px var(--border-boho);
 }
 
 /* ==========================================================================
-   30-DAY HEATMAP (Cream -> Sage -> Deep Olive Acanthus Scale)
+   PEBBLE & LEAF BUD HEATMAP (Oat -> Blush -> Mustard -> Terracotta -> Forest)
    ========================================================================== */
-.heatmap-grid {
+.boho-heatmap-grid {
     display: flex;
     flex-wrap: wrap;
-    gap: 6px;
-    background-color: var(--bg-card-inner);
-    border: 1px solid var(--border-hairline);
-    padding: 14px;
-    justify-content: flex-start;
+    gap: 7px;
+    background-color: var(--bg-card-alt);
+    border: 2px solid var(--border-boho);
+    border-radius: 16px;
+    padding: 16px;
 }
 
-.heatmap-cell {
+.boho-pebble {
     width: 20px;
     height: 20px;
-    border-radius: 3px;
-    border: 1px solid rgba(80, 70, 45, 0.15);
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    border-radius: 9px 4px 9px 4px; /* Organic leaf bud shape */
+    border: 1.5px solid rgba(74, 44, 42, 0.25);
     cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
-.heatmap-cell:hover,
-.heatmap-cell:focus-visible {
-    transform: scale(1.22);
-    box-shadow: 0 2px 6px rgba(31, 42, 68, 0.25);
-    outline: 1px solid var(--color-gold);
-    z-index: 2;
+.boho-pebble:hover,
+.boho-pebble:focus-visible {
+    transform: scale(1.3) rotate(-5deg);
+    box-shadow: 2px 2px 0px var(--border-boho);
+    border-color: var(--border-boho);
+    z-index: 5;
 }
 
 .legend-swatch {
@@ -384,164 +409,159 @@ h1, h2, h3, h4, h5, h6,
 }
 
 .legend-label {
-    font-family: var(--font-heading);
-    font-size: 0.8rem;
-    font-variant-caps: all-small-caps;
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
     letter-spacing: 0.1em;
-    color: var(--text-ink-muted);
+    color: var(--color-aubergine-muted);
 }
 
 /* ==========================================================================
-   RIGHT COLUMN CARTOUCHE CARDS (Reflection & Reminder)
+   REFLECTION CARD & INPUTS
    ========================================================================== */
-.reflection-card {
-    background-color: #f7f9f5;
-    border-color: #b7cbaf;
+.boho-pill-label {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    background-color: var(--color-blush);
+    color: var(--color-aubergine);
+    border: 1.5px solid var(--border-boho);
+    border-radius: 999px;
+    padding: 0.2rem 0.65rem;
 }
 
 .reflection-prompt {
-    font-family: var(--font-heading);
+    font-family: var(--font-display);
     font-style: italic;
     font-size: 1.05rem;
-    color: var(--text-ink-secondary);
+    color: var(--color-aubergine-muted);
     line-height: 1.4;
 }
 
-/* Custom Inscription Textarea & Inputs */
-.acanthus-input,
-.acanthus-textarea {
-    background-color: var(--bg-card);
-    border: 1px solid var(--border-cartouche);
-    color: var(--text-ink);
+.boho-textarea,
+.boho-input {
+    background-color: #ffffff;
+    border: 2px solid var(--border-boho);
+    border-radius: 12px;
+    color: var(--color-aubergine);
     font-family: var(--font-body);
-    font-size: 1.05rem;
-    border-radius: 0;
+    font-size: 1rem;
+    padding: 0.65rem 0.9rem;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.acanthus-textarea {
-    border-style: solid;
-    background-image: repeating-linear-gradient(transparent, transparent 31px, var(--border-hairline) 31px, var(--border-hairline) 32px);
-    line-height: 32px;
-    padding: 8px 12px;
-}
-
-.acanthus-input:focus,
-.acanthus-textarea:focus {
+.boho-textarea:focus,
+.boho-input:focus {
     background-color: #ffffff;
-    border-color: var(--color-gold);
-    box-shadow: 0 0 0 3px var(--color-gold-glow);
-    color: var(--text-ink);
+    border-color: var(--color-terracotta);
+    box-shadow: 3px 3px 0px var(--border-boho);
+    color: var(--color-aubergine);
     outline: none;
 }
 
-.acanthus-helper-text {
-    font-family: var(--font-body);
+.boho-helper-text {
     font-size: 0.9375rem;
-    color: var(--text-ink-muted);
+    color: var(--color-aubergine-muted);
     line-height: 1.45;
 }
 
-.acanthus-input-group .acanthus-input-addon {
-    background-color: var(--bg-card-inner);
-    border: 1px solid var(--border-cartouche);
-    border-left: none;
-    font-family: var(--font-heading);
-    font-variant-caps: all-small-caps;
+.boho-tiny-status {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
     letter-spacing: 0.1em;
-    color: var(--text-ink-secondary);
-    font-size: 0.9rem;
+    color: var(--color-forest);
+}
+
+.boho-input-group .boho-input-addon {
+    background-color: var(--bg-card-alt);
+    border: 2px solid var(--border-boho);
+    border-left: none;
+    border-radius: 0 12px 12px 0;
+    font-family: var(--font-body);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.75rem;
+    color: var(--color-aubergine);
 }
 
 /* ==========================================================================
-   VAULT & REVIEW SPECIFIC COMPONENT STYLING
+   VAULT & REVIEW SPECIFICS
    ========================================================================== */
-.acanthus-tag {
-    font-family: var(--font-heading);
-    font-variant-caps: all-small-caps;
-    letter-spacing: 0.12em;
-    font-size: 0.8125rem;
-    color: var(--color-navy);
-    background-color: var(--bg-card-inner);
-    border: 1px solid var(--border-cartouche);
-    padding: 0.2rem 0.6rem;
-    font-weight: 600;
-}
-
-.acanthus-review-due {
+.boho-due-badge {
     font-family: var(--font-body);
-    font-size: 0.875rem;
-    color: var(--text-ink-muted);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--color-terracotta-dark);
 }
 
-.acanthus-summary {
+.boho-summary {
     font-size: 0.95rem;
-    color: var(--text-ink-secondary);
+    color: var(--color-aubergine-muted);
     line-height: 1.5;
 }
 
-.border-top-cartouche {
-    border-top: 1px solid var(--border-hairline);
-    padding-top: 0.75rem;
+.border-top-boho {
+    border-top: 1.5px dashed var(--border-subtle);
 }
 
-.acanthus-label {
-    font-family: var(--font-heading);
-    font-variant-caps: all-small-caps;
-    letter-spacing: 0.1em;
-    font-size: 0.85rem;
-    color: var(--text-ink-muted);
-}
-
-.acanthus-glyph {
-    color: var(--color-gold);
-}
-
-.acanthus-field-label {
-    font-family: var(--font-heading);
-    font-variant-caps: all-small-caps;
-    letter-spacing: 0.12em;
-    font-size: 0.9375rem;
-    color: var(--color-navy);
+.boho-meta {
+    font-size: 0.8125rem;
     font-weight: 600;
+    color: var(--color-aubergine-muted);
+}
+
+.boho-field-label {
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--color-aubergine);
     margin-bottom: 0.4rem;
 }
 
-/* Review Session Flashcard Plaque */
-.flashcard {
-    background-color: var(--bg-card);
+.boho-revelation-box {
+    background-color: var(--bg-card-alt);
+    border: 2px solid var(--border-boho);
+    border-radius: 14px;
 }
 
-.acanthus-revelation-box {
-    background-color: var(--bg-card-inner);
-    border: 1px solid var(--border-cartouche);
-    border-left: 3px solid var(--color-sage);
+.boho-hr {
+    border-top: 2px dashed var(--border-subtle);
+    opacity: 0.7;
 }
 
-.btn-cartouche-rate {
-    font-family: var(--font-heading);
-    font-variant-caps: all-small-caps;
-    letter-spacing: 0.1em;
-    font-size: 0.95rem;
-    font-weight: 600;
-    border-radius: 0;
+/* Review Session Rating Buttons */
+.btn-boho-rate {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border-radius: 999px;
+    border: 2px solid var(--border-boho);
     padding: 0.5rem 0.75rem;
     background-color: var(--bg-card);
-    border: 1px solid var(--border-cartouche);
-    transition: all 0.2s ease;
+    box-shadow: 2px 2px 0px var(--border-boho);
+    transition: all 0.15s ease;
 }
 
-.rate-hard { color: var(--color-rose-deep); }
-.rate-hard:hover { background-color: #f7ebea; border-color: var(--color-rose); }
+.rate-hard { color: var(--color-terracotta-dark); }
+.rate-hard:hover { background-color: var(--color-blush); transform: translateY(-1px); }
 
-.rate-medium { color: var(--color-gold-muted); }
-.rate-medium:hover { background-color: #faf4e6; border-color: var(--color-gold); }
+.rate-medium { color: var(--color-mustard); }
+.rate-medium:hover { background-color: var(--color-mustard-light); transform: translateY(-1px); }
 
-.rate-easy { color: var(--color-sage-deep); }
-.rate-easy:hover { background-color: #eff5ee; border-color: var(--color-sage); }
+.rate-easy { color: var(--color-forest); }
+.rate-easy:hover { background-color: var(--color-sage-light); transform: translateY(-1px); }
 
 /* ==========================================================================
-   ALARM OVERLAY (Victorian Horologe / Recollection Lock)
+   ALARM OVERLAY & BOHEMIAN ARCH MODAL
    ========================================================================== */
 #alarm-overlay {
     display: none;
@@ -556,73 +576,52 @@ h1, h2, h3, h4, h5, h6,
 .alarm-backdrop {
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
-    background-color: rgba(20, 27, 44, 0.88);
-    backdrop-filter: blur(2px);
+    background-color: rgba(74, 44, 42, 0.75);
+    backdrop-filter: blur(3px);
 }
 
-.alarm-modal {
+.boho-arch-modal {
     position: relative;
     z-index: 10000;
     width: 100%;
-    max-width: 520px;
+    max-width: 500px;
+    border-radius: 120px 120px 24px 24px;
     background-color: var(--bg-card);
 }
 
-.alarm-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-family: var(--font-heading);
-    font-variant-caps: all-small-caps;
-    letter-spacing: 0.16em;
-    font-size: 0.875rem;
-    color: var(--color-gold-deep);
-    font-weight: 600;
+.boho-prompt-alcove {
+    background-color: var(--bg-card-alt);
+    border: 2px solid var(--border-boho);
+    border-radius: 16px;
 }
 
-.alarm-title {
-    font-size: 1.85rem;
-    color: var(--color-navy);
-}
-
-.alarm-subtitle {
-    font-size: 1rem;
-    color: var(--text-ink-secondary);
-}
-
-.alarm-prompt-frame {
-    background-color: var(--bg-card-inner);
-    border: 1px solid var(--border-cartouche);
-    border-left: 3px solid var(--color-gold);
-}
-
-.alarm-prompt-frame h4 {
+.boho-prompt-alcove h4 {
+    font-family: var(--font-display);
     font-size: 1.25rem;
-    color: var(--color-navy);
+    color: var(--color-aubergine);
 }
 
-.alarm-feedback-text {
-    font-family: var(--font-heading);
-    font-style: italic;
-    color: var(--color-rose-deep);
-    font-size: 1.05rem;
+.boho-feedback-text {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--color-terracotta);
 }
 
-/* Footer & Colophon */
-.acanthus-footer {
-    border-top: 1px solid var(--border-hairline);
+/* Footer */
+.boho-footer {
+    border-top: 2px solid var(--border-boho);
+    background-color: var(--bg-card);
 }
-.acanthus-colophon {
-    font-family: var(--font-heading);
-    font-variant-caps: all-small-caps;
-    letter-spacing: 0.2em;
-    font-size: 0.875rem;
-    color: var(--text-ink-muted);
+.boho-colophon {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--color-aubergine-muted);
 }
 
-/* ==========================================================================
-   ACCESSIBILITY & PREFERS-REDUCED-MOTION
-   ========================================================================== */
+/* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
     *,
     *::before,

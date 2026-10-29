@@ -2,28 +2,32 @@
 {% block content %}
 <div class="row justify-content-center">
     <div class="col-md-9 col-lg-8">
-        <article class="cartouche-card p-4 p-md-5">
+        <article class="boho-card p-4 p-md-5 position-relative">
             <header class="text-center mb-4">
-                <div class="cartouche-ornament-center mb-2" aria-hidden="true">
-                    <svg viewBox="0 0 160 20" width="160" height="20" fill="none">
-                        <path d="M80,2 C65,8 45,10 10,11 C45,12 65,14 80,18 C95,14 115,12 150,11 C115,10 95,8 80,2 Z" fill="var(--color-gold)" opacity="0.65"/>
-                        <circle cx="80" cy="11" r="2.5" fill="var(--color-gold)"/>
+                <div class="mb-2" aria-hidden="true">
+                    <!-- Little Bohemian Sunburst -->
+                    <svg viewBox="0 0 60 30" width="60" height="30" fill="none">
+                        <path d="M30 30 A15 15 0 0 1 15 30 Z" fill="var(--color-mustard)"/>
+                        <line x1="30" y1="10" x2="30" y2="2" stroke="var(--color-terracotta)" stroke-width="2.5" stroke-linecap="round"/>
+                        <line x1="18" y1="15" x2="12" y2="8" stroke="var(--color-terracotta)" stroke-width="2.5" stroke-linecap="round"/>
+                        <line x1="42" y1="15" x2="48" y2="8" stroke="var(--color-terracotta)" stroke-width="2.5" stroke-linecap="round"/>
                     </svg>
                 </div>
-                <h1 class="h2 serif-heading mb-1">New Learning Entry</h1>
-                <p class="acanthus-helper-text">Record and codify a concept into the knowledge vault</p>
+                <h1 class="h2 boho-headline mb-1">New Learning Note</h1>
+                <p class="boho-helper-text">Nourish your curiosity with a fresh concept</p>
             </header>
 
             <form action="{{ url_for('add_entry') }}" method="POST">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                 <div class="mb-4">
-                    <label class="form-label acanthus-field-label">Title / Fundamental Inquiry</label>
-                    <input type="text" name="title" class="form-control acanthus-input" placeholder="e.g., What is Polymorphism?" required>
+                    <label class="form-label boho-field-label">Question / Core Inquiry</label>
+                    <input type="text" name="title" class="form-control boho-input" placeholder="e.g., What is Polymorphism?" required>
                 </div>
 
                 <div class="row g-3 mb-4">
                     <div class="col-md-6">
-                        <label class="form-label acanthus-field-label">Category</label>
-                        <input list="categories" name="category" class="form-control acanthus-input" placeholder="Select or codify category..." required>
+                        <label class="form-label boho-field-label">Category</label>
+                        <input list="categories" name="category" class="form-control boho-input" placeholder="Select or create category..." required>
                         <datalist id="categories">
                             {% for cat in categories %}
                             <option value="{{ cat.name }}">
@@ -31,29 +35,29 @@
                         </datalist>
                     </div>
                     <div class="col-md-6">
-                        <label class="form-label acanthus-field-label">Initial Difficulty</label>
-                        <select name="difficulty" class="form-select acanthus-input">
-                            <option value="easy">Easy</option>
-                            <option value="medium" selected>Medium</option>
-                            <option value="hard">Hard</option>
+                        <label class="form-label boho-field-label">Initial Difficulty</label>
+                        <select name="difficulty" class="form-select boho-input">
+                            <option value="easy">Easy (4 Days)</option>
+                            <option value="medium" selected>Medium (2 Days)</option>
+                            <option value="hard">Hard (1 Day)</option>
                         </select>
                     </div>
                 </div>
 
                 <div class="mb-4">
-                    <label class="form-label acanthus-field-label">Distilled Summary / Key Answer</label>
-                    <input type="text" name="summary" class="form-control acanthus-input" placeholder="Concise keywords for active recollection..." required>
-                    <small class="acanthus-helper-text d-block mt-1">This concise phrase serves as the key for active recollection timers.</small>
+                    <label class="form-label boho-field-label">Distilled Summary / Key Recall Phrase</label>
+                    <input type="text" name="summary" class="form-control boho-input" placeholder="Keywords for instant recall..." required>
+                    <small class="boho-helper-text d-block mt-1">This concise phrase unlocks the active reminder timer.</small>
                 </div>
 
                 <div class="mb-4">
-                    <label class="form-label acanthus-field-label">Comprehensive Manuscript Notes</label>
-                    <textarea name="content" class="form-control acanthus-textarea" rows="6" placeholder="In-depth explanations, proofs, and contextual nuances..."></textarea>
+                    <label class="form-label boho-field-label">Detailed Studio Notes</label>
+                    <textarea name="content" class="form-control boho-textarea" rows="6" placeholder="Spill full thoughts, code snippets, or deeper explanations..."></textarea>
                 </div>
 
-                <div class="d-flex justify-content-end align-items-center gap-3 pt-2 border-top-cartouche">
-                    <a href="{{ url_for('vault') }}" class="btn btn-cartouche-secondary">Cancel</a>
-                    <button type="submit" class="btn btn-cartouche-primary px-4">Codify to Vault</button>
+                <div class="d-flex justify-content-end align-items-center gap-3 pt-3 border-top-boho">
+                    <a href="{{ url_for('vault') }}" class="btn btn-boho-secondary">Cancel</a>
+                    <button type="submit" class="btn btn-boho-primary px-4">Plant Note</button>
                 </div>
             </form>
         </article>

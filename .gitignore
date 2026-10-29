@@ -1,4 +1,18 @@
-AGENTS.md
-SKILL.md
-.agents
-__pycache__
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# SQLite Database & Instance
+instance/
+*.db
+*.sqlite
+*.sqlite3
+
+# Environment Variables & Secrets
+.env
+.env.local
+
+# Operating System Files
+.DS_Store
+Thumbs.db

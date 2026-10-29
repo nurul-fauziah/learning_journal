@@ -1,83 +1,97 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="container text-center" style="max-width: 640px;">
+<div class="container text-center" style="max-width: 620px;">
     <header class="mb-4">
-        <div class="cartouche-ornament-center mb-2" aria-hidden="true">
-            <svg viewBox="0 0 160 20" width="160" height="20" fill="none">
-                <path d="M80,2 C65,8 45,10 10,11 C45,12 65,14 80,18 C95,14 115,12 150,11 C115,10 95,8 80,2 Z" fill="var(--color-gold)" opacity="0.65"/>
-                <circle cx="80" cy="11" r="2.5" fill="var(--color-gold)"/>
+        <div class="mb-2" aria-hidden="true">
+            <!-- Bohemian Half Sun -->
+            <svg viewBox="0 0 80 40" width="80" height="40" fill="none">
+                <path d="M40 40 A20 20 0 0 1 20 40 Z" fill="var(--color-mustard)"/>
+                <line x1="40" y1="16" x2="40" y2="6" stroke="var(--color-terracotta)" stroke-width="2.5" stroke-linecap="round"/>
+                <line x1="26" y1="20" x2="20" y2="12" stroke="var(--color-terracotta)" stroke-width="2.5" stroke-linecap="round"/>
+                <line x1="54" y1="20" x2="60" y2="12" stroke="var(--color-terracotta)" stroke-width="2.5" stroke-linecap="round"/>
             </svg>
         </div>
-        <h1 class="h2 serif-heading mb-1">Review Session</h1>
-        <p class="acanthus-helper-text">Recollect and reinforce knowledge through spaced repetition</p>
+        <h1 class="h2 boho-headline mb-1">Review Session</h1>
+        {% if is_practice %}
+        <span class="boho-pill-label d-inline-block mb-1">Practice Mode &bull; Refreshing Stored Knowledge</span>
+        {% else %}
+        <p class="boho-helper-text">Re-center and nourish your memory through spaced repetition</p>
+        {% endif %}
     </header>
 
     {% if entries|length == 0 %}
-    <article class="cartouche-card p-5">
-        <div class="acanthus-glyph fs-1 mb-3" aria-hidden="true">❦</div>
-        <h2 class="h4 serif-heading mb-2">All Inquiries Current</h2>
-        <p class="acanthus-helper-text mb-4">No reviews are due at this juncture. Explore and codify new disciplines.</p>
-        <a href="{{ url_for('dashboard') }}" class="btn btn-cartouche-primary">Return to Dossier</a>
+    <article class="boho-card p-5">
+        <div class="mb-3" aria-hidden="true">
+            <svg viewBox="0 0 64 64" width="48" height="48" fill="none">
+                <circle cx="32" cy="32" r="16" fill="var(--color-mustard)"/>
+                <path d="M32 16 C30 8 20 4 12 6 C16 12 20 14 30 16 Z" fill="var(--color-forest)"/>
+                <path d="M32 16 C34 8 44 4 52 6 C48 12 44 14 34 16 Z" fill="var(--color-sage)"/>
+            </svg>
+        </div>
+        <h2 class="h4 boho-headline mb-2">All Caught Up!</h2>
+        <p class="boho-helper-text mb-4">No reviews are due right now. Go explore and learn something inspiring!</p>
+        <a href="{{ url_for('dashboard') }}" class="btn btn-boho-primary">Back to Studio</a>
     </article>
     {% else %}
 
     <div id="flashcard-container">
         {% for entry in entries %}
-        <article class="flashcard cartouche-card p-4 p-md-5" id="card-{{ loop.index }}" style="display: {{ 'block' if loop.first else 'none' }};">
+        <article class="flashcard boho-card p-4 p-md-5" id="card-{{ loop.index }}" style="display: {{ 'block' if loop.first else 'none' }};">
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <span class="acanthus-tag">{{ entry.category.name }}</span>
-                <span class="acanthus-review-due">Fascicle {{ loop.index }} of {{ entries|length }}</span>
+                <span class="boho-pill-label">{{ entry.category.name }}</span>
+                <span class="boho-due-badge">Card {{ loop.index }} of {{ entries|length }}</span>
             </div>
             
-            <h2 class="h3 serif-heading mb-4 text-center">{{ entry.title }}</h2>
+            <h2 class="h3 boho-headline mb-4 text-center">{{ entry.title }}</h2>
             
             <!-- Hidden Answer Section -->
             <div class="answer-section text-start" id="answer-{{ loop.index }}" style="display: none;">
-                <div class="ornate-separator my-3" aria-hidden="true">
-                    <span class="sep-line"></span>
-                    <span class="sep-gem">❖</span>
-                    <span class="sep-line"></span>
-                </div>
+                <hr class="boho-hr my-3">
                 
-                <div class="p-3 acanthus-revelation-box mb-4">
-                    <div class="acanthus-field-label mb-1">Distilled Key Answer</div>
-                    <p class="fs-5 mb-2 serif-heading">{{ entry.summary }}</p>
+                <div class="p-3 boho-revelation-box mb-4">
+                    <div class="boho-field-label mb-1">Distilled Key Answer</div>
+                    <p class="fs-5 mb-2 boho-headline">{{ entry.summary }}</p>
                     {% if entry.content %}
-                    <div class="acanthus-content-reveal">
-                        <small class="fst-italic text-muted">{{ entry.content }}</small>
+                    <div class="boho-content-reveal">
+                        <small class="text-muted">{{ entry.content }}</small>
                     </div>
                     {% endif %}
                 </div>
                 
-                <p class="acanthus-field-label text-center mb-2">Assess Recall Quality</p>
+                <p class="boho-field-label text-center mb-2">How well did you recall this?</p>
                 
                 <div class="d-flex justify-content-center gap-2" role="group" aria-label="Recall rating">
-                    <button type="button" onclick="rateCard('{{ entry.id }}', 'hard', '{{ loop.index }}')" class="btn btn-cartouche-rate rate-hard flex-fill">
+                    <button type="button" onclick="rateCard('{{ entry.id }}', 'hard', '{{ loop.index }}')" class="btn btn-boho-rate rate-hard flex-fill">
                         <span>Challenging</span>
                     </button>
-                    <button type="button" onclick="rateCard('{{ entry.id }}', 'medium', '{{ loop.index }}')" class="btn btn-cartouche-rate rate-medium flex-fill">
-                        <span>Adequate</span>
+                    <button type="button" onclick="rateCard('{{ entry.id }}', 'medium', '{{ loop.index }}')" class="btn btn-boho-rate rate-medium flex-fill">
+                        <span>Good</span>
                     </button>
-                    <button type="button" onclick="rateCard('{{ entry.id }}', 'easy', '{{ loop.index }}')" class="btn btn-cartouche-rate rate-easy flex-fill">
-                        <span>Effortless</span>
+                    <button type="button" onclick="rateCard('{{ entry.id }}', 'easy', '{{ loop.index }}')" class="btn btn-boho-rate rate-easy flex-fill">
+                        <span>Easy</span>
                     </button>
                 </div>
             </div>
 
             <!-- Show Answer Button -->
-            <button id="btn-show-{{ loop.index }}" onclick="showAnswer('{{ loop.index }}')" class="btn btn-cartouche-primary mt-3 px-5">
-                <span>Reveal Inscription</span>
+            <button id="btn-show-{{ loop.index }}" onclick="showAnswer('{{ loop.index }}')" class="btn btn-boho-primary mt-3 px-5">
+                <span>Reveal Answer</span>
             </button>
         </article>
         {% endfor %}
     </div>
 
     <!-- Completion Card -->
-    <article id="session-complete" style="display: none;" class="cartouche-card p-5">
-        <div class="acanthus-glyph fs-1 mb-2" aria-hidden="true">❧</div>
-        <h2 class="h3 serif-heading mb-2">Recollection Complete</h2>
-        <p class="acanthus-helper-text mb-4">Your disciplined practice strengthens memory pathways.</p>
-        <a href="{{ url_for('dashboard') }}" class="btn btn-cartouche-primary">Return to Dossier</a>
+    <article id="session-complete" style="display: none;" class="boho-card p-5">
+        <div class="mb-3" aria-hidden="true">
+            <svg viewBox="0 0 64 64" width="56" height="56" fill="none">
+                <circle cx="32" cy="32" r="20" fill="var(--color-mustard)"/>
+                <path d="M22 32 L29 39 L44 24" stroke="var(--color-aubergine)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
+        <h2 class="h3 boho-headline mb-2">Review Complete!</h2>
+        <p class="boho-helper-text mb-4">Your daily discipline is flowering beautifully.</p>
+        <a href="{{ url_for('dashboard') }}" class="btn btn-boho-primary">Back to Dashboard</a>
     </article>
     {% endif %}
 </div>
@@ -93,9 +107,13 @@ function rateCard(idStr, quality, indexStr) {
     const entryId = parseInt(idStr);
     const currentIndex = parseInt(indexStr);
     
+    const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
     fetch(`/api/mark_reviewed/${entryId}`, {
         method: 'POST',
-        headers: {'Content-Type': 'application/json'},
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrfToken
+        },
         body: JSON.stringify({ quality: quality })
     })
     .then(response => response.json())
