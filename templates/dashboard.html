@@ -1,79 +1,244 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="row">
-    <!-- Kolom Kiri: Stats & Heatmap -->
-    <div class="col-md-8">
-        <div class="vintage-card">
-            <h2>👋 Hello, Learner.</h2>
-            <p class="handwritten text-muted">"Discipline is choosing between what you want now and what you want most."</p>
-            <hr>
-            
-            <!-- Statistik Utama -->
-            <div class="d-flex justify-content-between text-center mb-4">
-                <div class="p-3">
-                    <h1 class="display-4 fw-bold text-danger">{{ due }}</h1>
-                    <small class="text-uppercase fw-bold text-secondary">Reviews Due</small>
-                </div>
-                <div class="p-3 border-start border-end">
-                    <h1 class="display-4 fw-bold text-primary">{{ total }}</h1>
-                    <small class="text-uppercase fw-bold text-secondary">Total Notes</small>
-                </div>
-                <div class="p-3">
-                    <h1 class="display-4 fw-bold text-warning">🔥</h1>
-                    <small class="text-uppercase fw-bold text-secondary">Keep Streak</small>
-                </div>
+<div class="row g-4 align-items-start">
+    <!-- Left Column: Studio Dossier (Greeting, Stats, CTA, Heatmap) -->
+    <div class="col-lg-8">
+        <!-- Main Arched Hero Card -->
+        <article class="boho-card boho-hero-card p-4 p-md-5 mb-4 position-relative overflow-hidden">
+            <!-- Organic Background Pebble Blob -->
+            <div class="boho-blob-shape boho-blob-hero" aria-hidden="true"></div>
+
+            <!-- Radiating Half-Sun Hero Motif -->
+            <div class="boho-hero-sun text-center mb-3" aria-hidden="true">
+                <svg viewBox="0 0 160 80" width="160" height="80" fill="none" class="boho-sun-svg">
+                    <!-- Semi-circle Sun Disk -->
+                    <path d="M80 80 A36 36 0 0 1 44 80 Z" fill="var(--color-mustard)"/>
+                    <!-- Sun Rays -->
+                    <line x1="80" y1="36" x2="80" y2="18" stroke="var(--color-terracotta)" stroke-width="4" stroke-linecap="round"/>
+                    <line x1="52" y1="46" x2="38" y2="32" stroke="var(--color-terracotta)" stroke-width="4" stroke-linecap="round"/>
+                    <line x1="108" y1="46" x2="122" y2="32" stroke="var(--color-terracotta)" stroke-width="4" stroke-linecap="round"/>
+                    <line x1="32" y1="68" x2="16" y2="64" stroke="var(--color-terracotta)" stroke-width="4" stroke-linecap="round"/>
+                    <line x1="128" y1="68" x2="144" y2="64" stroke="var(--color-terracotta)" stroke-width="4" stroke-linecap="round"/>
+                </svg>
             </div>
 
-            <a href="{{ url_for('review_session') }}" class="btn btn-vintage w-100 py-3 fs-5">🚀 Start Daily Review</a>
-        </div>
+            <!-- Greeting & Motivational Quote -->
+            <header class="dashboard-greeting text-center mb-4 position-relative">
+                <div class="d-inline-flex align-items-center gap-2 mb-2">
+                    <span class="boho-badge-icon" aria-hidden="true">
+                        <!-- Small Botanical Sprig -->
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                            <path d="M12 22V6M12 6C8 7 5 10 5 14C8 14 11 11 12 6ZM12 6C16 7 19 10 19 14C16 14 13 11 12 6Z"/>
+                            <path d="M12 14C9 15 7 17 7 20M12 14C15 15 17 17 17 20"/>
+                        </svg>
+                    </span>
+                    <h1 class="display-5 boho-headline mb-0">Hello, Learner.</h1>
+                </div>
+                <blockquote class="boho-quote mx-auto mb-0">
+                    &ldquo;Discipline is choosing between what you want now and what you want most.&rdquo;
+                </blockquote>
+            </header>
 
-        <!-- Heatmap Consistency Section -->
-        <div class="vintage-card mt-4">
-            <h5 class="mb-3">📅 Learning Consistency (Last 30 Days)</h5>
-            <div class="d-flex flex-wrap" style="gap: 4px;">
+            <!-- Triptych Arched Statistics -->
+            <section class="boho-stats-row row text-center mb-4 g-3 position-relative" aria-label="Learning Metrics">
+                <!-- Stat 1: Reviews Due -->
+                <div class="col-4">
+                    <div class="boho-stat-arch p-3">
+                        <div class="stat-number stat-due" aria-label="{{ due }} reviews due">{{ due }}</div>
+                        <div class="boho-stat-label">Reviews Due</div>
+                    </div>
+                </div>
+
+                <!-- Stat 2: Total Notes -->
+                <div class="col-4">
+                    <div class="boho-stat-arch boho-stat-arch-forest p-3">
+                        <div class="stat-number stat-total" aria-label="{{ total }} total notes">{{ total }}</div>
+                        <div class="boho-stat-label">Total Notes</div>
+                    </div>
+                </div>
+
+                <!-- Stat 3: Streak Sun -->
+                <div class="col-4">
+                    <div class="boho-stat-arch boho-stat-arch-sun p-3">
+                        <div class="stat-number stat-streak d-flex align-items-center justify-content-center gap-2">
+                            <span>{{ streak }}</span>
+                            <!-- Boho Radiating Sun for Streak -->
+                            <svg viewBox="0 0 32 32" width="28" height="28" fill="none" class="streak-sun-svg">
+                                <circle cx="16" cy="16" r="7" fill="var(--color-mustard)"/>
+                                <line x1="16" y1="4" x2="16" y2="7" stroke="var(--color-terracotta)" stroke-width="2" stroke-linecap="round"/>
+                                <line x1="16" y1="25" x2="16" y2="28" stroke="var(--color-terracotta)" stroke-width="2" stroke-linecap="round"/>
+                                <line x1="4" y1="16" x2="7" y2="16" stroke="var(--color-terracotta)" stroke-width="2" stroke-linecap="round"/>
+                                <line x1="25" y1="16" x2="28" y2="16" stroke="var(--color-terracotta)" stroke-width="2" stroke-linecap="round"/>
+                                <line x1="7.5" y1="7.5" x2="9.8" y2="9.8" stroke="var(--color-terracotta)" stroke-width="2" stroke-linecap="round"/>
+                                <line x1="22.2" y1="22.2" x2="24.5" y2="24.5" stroke="var(--color-terracotta)" stroke-width="2" stroke-linecap="round"/>
+                                <line x1="7.5" y1="24.5" x2="9.8" y2="22.2" stroke="var(--color-terracotta)" stroke-width="2" stroke-linecap="round"/>
+                                <line x1="22.2" y1="9.8" x2="24.5" y2="7.5" stroke="var(--color-terracotta)" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <div class="boho-stat-label">Day Streak</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Primary Action Callout (Chunky Arch Button with Print Shadow) -->
+            <div class="position-relative text-center mt-2">
+                <a href="{{ url_for('review_session') }}" class="btn btn-boho-primary w-100 py-3 d-flex align-items-center justify-content-center gap-3">
+                    <!-- Cut-out Leaf Arrow -->
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                    <span>Start Daily Review</span>
+                </a>
+            </div>
+        </article>
+
+        <!-- 30-Day Consistency Heatmap (Pebble & Leaf Bud Shapes) -->
+        <article class="boho-card p-4">
+            <header class="d-flex align-items-center justify-content-between mb-3 flex-wrap gap-2">
+                <div class="d-flex align-items-center gap-2">
+                    <span class="boho-badge-icon" aria-hidden="true">
+                        <!-- Organic Leaf Bud Grid -->
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="4" width="18" height="17" rx="3"/>
+                            <line x1="3" y1="9" x2="21" y2="9"/>
+                            <circle cx="8" cy="14" r="1.5" fill="currentColor"/>
+                            <circle cx="16" cy="14" r="1.5" fill="currentColor"/>
+                            <circle cx="12" cy="18" r="1.5" fill="currentColor"/>
+                        </svg>
+                    </span>
+                    <h2 class="h5 boho-subheading mb-0">Learning Consistency (Last 30 Days)</h2>
+                </div>
+                
+                <!-- Pebble Legend: Oat -> Blush -> Mustard -> Terracotta -> Forest -->
+                <div class="heatmap-legend d-flex align-items-center gap-1">
+                    <span class="legend-label">Less</span>
+                    <span class="boho-pebble legend-swatch" style="background-color: var(--heat-0);" title="0 entries"></span>
+                    <span class="boho-pebble legend-swatch" style="background-color: var(--heat-1);" title="1 entry"></span>
+                    <span class="boho-pebble legend-swatch" style="background-color: var(--heat-2);" title="2-3 entries"></span>
+                    <span class="boho-pebble legend-swatch" style="background-color: var(--heat-3);" title="4+ entries"></span>
+                    <span class="legend-label">More</span>
+                </div>
+            </header>
+
+            <div class="boho-heatmap-grid" role="grid" aria-label="30-day activity map">
                 {% for date, count in heatmap.items() %}
-                <div title="{{ date }}: {{ count }} items" 
+                <div class="boho-pebble"
+                     role="gridcell"
+                     tabindex="0"
+                     title="{{ date }}: {{ count }} activities recorded" 
                      data-bs-toggle="tooltip"
-                     style="
-                        width: 18px; 
-                        height: 18px; 
-                        border-radius: 3px; 
-                        background-color: {{ '#ebedf0' if count == 0 else '#9be9a8' if count < 2 else '#40c463' if count < 4 else '#216e39' }};
-                        border: 1px solid rgba(27, 31, 35, 0.06);
-                     ">
+                     data-bs-placement="top"
+                     style="background-color: {{ 'var(--heat-0)' if count == 0 else 'var(--heat-1)' if count < 2 else 'var(--heat-2)' if count < 4 else 'var(--heat-3)' }};"
+                     aria-label="{{ date }}: {{ count }} entries">
                 </div>
                 {% endfor %}
             </div>
-            <small class="text-muted mt-2 d-block text-end" style="font-size: 0.8rem;">Less <span style="display:inline-block; width:10px; height:10px; background:#ebedf0;"></span> <span style="display:inline-block; width:10px; height:10px; background:#216e39;"></span> More</small>
-        </div>
+        </article>
     </div>
     
-    <!-- Kolom Kanan: Reflection & Settings -->
-    <div class="col-md-4">
-        <div class="vintage-card" style="background-color: #f1f8e9; border-color: #c5e1a5;">
-            <h5 class="fw-bold">📝 Today's Reflection</h5>
-            <textarea class="form-control handwritten" rows="5" placeholder="What is one new thing I understood today? What confused me?" style="background: transparent; border: none; border-bottom: 2px dashed #aed581; resize: none;"></textarea>
-        </div>
-        
-        <!-- Tombol simulasi setting alarm -->
-        <div class="vintage-card mt-3">
-            <h5 class="fw-bold">⏰ Active Reminder</h5>
-            <p class="small text-muted">Set a timer. When it rings, you MUST answer a question to dismiss it.</p>
-            <div class="input-group mb-3">
-                <input type="number" id="alarm-timer" class="form-control" value="10" min="5">
-                <span class="input-group-text">sec</span>
-            </div>
-            <button onclick="setAlarm()" class="btn btn-outline-dark w-100">Set Timer</button>
+    <!-- Right Column: Arched Reflection & Reminder Cards -->
+    <div class="col-lg-4">
+        <div class="d-flex flex-column gap-4">
+            <!-- Today's Reflection Card (Bohemian Arch Window) -->
+            <article class="boho-card boho-arch-card p-4">
+                <header class="text-center mb-3">
+                    <!-- Potted Ceramic Vase Illustration -->
+                    <div class="potted-plant-icon mb-2" aria-hidden="true">
+                        <svg viewBox="0 0 64 64" width="48" height="48" fill="none">
+                            <!-- Clay Vase -->
+                            <path d="M24 44 L40 44 L44 58 L20 58 Z" fill="var(--color-terracotta)"/>
+                            <!-- Sprouting Fronds -->
+                            <path d="M32 44 C30 32 20 24 10 24 C14 30 20 34 30 42 Z" fill="var(--color-forest)"/>
+                            <path d="M32 44 C34 32 44 24 54 24 C50 30 44 34 34 42 Z" fill="var(--color-sage)"/>
+                            <path d="M32 44 C32 28 32 16 32 8 C29 18 29 28 32 44 Z" fill="var(--color-mustard)"/>
+                        </svg>
+                    </div>
+                    <span class="boho-pill-label mb-1 d-inline-block">DAILY INQUIRY</span>
+                    <h2 class="h4 boho-subheading mb-0">Today's Reflection</h2>
+                    <span id="reflection-status" class="boho-tiny-status mt-1 d-block"></span>
+                </header>
+                
+                <div class="reflection-body">
+                    <p class="reflection-prompt mb-3 text-center">What is one new thing I understood today? What confused me?</p>
+                    <textarea id="today-reflection" class="form-control boho-textarea" rows="6" placeholder="Sprout your thoughts here..." aria-label="Today's Reflection Notes"></textarea>
+                </div>
+            </article>
+            
+            <!-- Active Reminder Card -->
+            <article class="boho-card p-4">
+                <header class="d-flex align-items-center gap-2 mb-2">
+                    <span class="boho-badge-icon" aria-hidden="true">
+                        <!-- Boho Sundial / Hourglass -->
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                            <path d="M5 22h14M5 2h14M17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V22M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2"/>
+                        </svg>
+                    </span>
+                    <h2 class="h5 boho-subheading mb-0">Active Reminder</h2>
+                </header>
+                <p class="boho-helper-text mb-3">Set a studio timer. When it rings, answer a question to unlock the screen.</p>
+                
+                <div class="input-group boho-input-group mb-3">
+                    <input type="number" id="alarm-timer" class="form-control boho-input text-end pe-2" value="10" min="5" max="3600" aria-label="Timer interval in seconds">
+                    <span class="input-group-text boho-input-addon">seconds</span>
+                </div>
+                
+                <button onclick="setAlarm()" class="btn btn-boho-secondary w-100 py-2">
+                    <span>Set Timer</span>
+                </button>
+            </article>
         </div>
     </div>
 </div>
 
-<!-- Script tambahan untuk tooltip heatmap -->
 <script>
-    // Aktifkan Bootstrap tooltip jika mau
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-      return new bootstrap.Tooltip(tooltipTriggerEl)
-    })
+    document.addEventListener("DOMContentLoaded", function () {
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+
+        // Today's Reflection Autosave
+        const reflectionEl = document.getElementById('today-reflection');
+        const statusEl = document.getElementById('reflection-status');
+        let saveTimeout = null;
+
+        fetch('/api/reflection')
+            .then(res => res.json())
+            .then(data => {
+                if (data.learned_today) {
+                    reflectionEl.value = data.learned_today;
+                    statusEl.innerText = 'Grounded';
+                }
+            })
+            .catch(() => {});
+
+        reflectionEl.addEventListener('input', function() {
+            statusEl.innerText = 'Seeding...';
+            clearTimeout(saveTimeout);
+            saveTimeout = setTimeout(saveReflection, 800);
+        });
+
+        function saveReflection() {
+            const text = reflectionEl.value;
+            const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
+            fetch('/api/reflection', {
+                method: 'POST',
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken
+                },
+                body: JSON.stringify({ text: text })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    statusEl.innerText = `Saved at ${data.saved_at}`;
+                }
+            })
+            .catch(() => {
+                statusEl.innerText = 'Sync failed';
+            });
+        }
+    });
 </script>
 {% endblock %}

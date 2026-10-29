@@ -1,25 +1,56 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <h2 class="handwritten">📚 Knowledge Vault</h2>
-    <input type="text" id="searchBox" class="form-control w-25" placeholder="Search notes..." onkeyup="filterNotes()">
+<div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+    <div class="d-flex align-items-center gap-2">
+        <span class="boho-badge-icon" aria-hidden="true">
+            <!-- Cut-out Folio Leaf -->
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                <circle cx="12" cy="10" r="3" fill="var(--color-mustard)"/>
+            </svg>
+        </span>
+        <h1 class="h2 boho-headline mb-0">Knowledge Vault</h1>
+    </div>
+    <div class="w-auto" style="min-width: 260px;">
+        <input type="text" id="searchBox" class="form-control boho-input" placeholder="Search notes..." onkeyup="filterNotes()" aria-label="Search notes">
+    </div>
 </div>
 
-<div class="row" id="notesContainer">
+<div class="row g-4" id="notesContainer">
     {% for entry in entries %}
-    <div class="col-md-4 mb-4 note-item">
-        <div class="vintage-card h-100 d-flex flex-column">
-            <div class="d-flex justify-content-between align-items-start">
-                <span class="badge bg-secondary mb-2">{{ entry.category.name }}</span>
-                <small class="text-muted" style="font-size: 0.8rem;">Review in: {{ (entry.next_review - now).days }} days</small>
+    <div class="col-md-6 col-lg-4 note-item">
+        <article class="boho-card h-100 d-flex flex-column p-4 position-relative">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <span class="boho-pill-label">{{ entry.category.name }}</span>
+                <span class="boho-due-badge">{{ entry.next_review|due_status }}</span>
             </div>
-            <h5 class="fw-bold">{{ entry.title }}</h5>
-            <p class="text-muted flex-grow-1" style="font-size: 0.9rem;">
-                {{ entry.summary[:100] }}...
+            <h2 class="h5 boho-subheading entry-title mb-2">{{ entry.title }}</h2>
+            <p class="boho-summary flex-grow-1 mb-3">
+                {{ entry.summary[:120] }}{% if entry.summary|length > 120 %}...{% endif %}
             </p>
-            <div class="mt-2 pt-2 border-top border-secondary">
-                <small>Level: <strong>{{ entry.difficulty }}</strong></small>
+            <div class="pt-3 border-top-boho d-flex justify-content-between align-items-center">
+                <span class="boho-meta">Difficulty: <strong class="text-capitalize">{{ entry.difficulty }}</strong></span>
+                <span class="boho-meta">Reviews: <strong>{{ entry.review_count }}</strong></span>
             </div>
+        </article>
+    </div>
+    {% else %}
+    <!-- Empty State: Potted Plant Illustration -->
+    <div class="col-12 text-center py-5">
+        <div class="boho-card p-5 mx-auto text-center" style="max-width: 460px;">
+            <div class="mb-3" aria-hidden="true">
+                <svg viewBox="0 0 80 80" width="64" height="64" fill="none">
+                    <ellipse cx="40" cy="56" rx="18" ry="14" fill="var(--color-terracotta)"/>
+                    <rect x="36" y="38" width="8" height="6" fill="var(--color-mustard)"/>
+                    <path d="M40 38 C34 26 22 18 10 20 C18 28 26 30 38 38 Z" fill="var(--color-forest)"/>
+                    <path d="M40 38 C46 26 58 18 70 20 C62 28 54 30 42 38 Z" fill="var(--color-sage)"/>
+                    <path d="M40 38 C40 22 40 12 40 6 C36 16 36 26 40 38 Z" stroke="var(--color-forest)" stroke-width="3"/>
+                </svg>
+            </div>
+            <h2 class="h4 boho-headline mb-2">The Studio is Quiet</h2>
+            <p class="boho-helper-text mb-4">No notes recorded yet. Plant your first seeds of knowledge!</p>
+            <a href="{{ url_for('add_entry') }}" class="btn btn-boho-primary">Plant a Note</a>
         </div>
     </div>
     {% endfor %}
@@ -27,13 +58,14 @@
 
 <script>
 function filterNotes() {
-    let input = document.getElementById('searchBox').value.toLowerCase();
+    let input = document.getElementById('searchBox').value.toLowerCase().trim();
     let cards = document.getElementsByClassName('note-item');
     
     for (let i = 0; i < cards.length; i++) {
-        let title = cards[i].querySelector('h5').innerText.toLowerCase();
-        let summary = cards[i].querySelector('p').innerText.toLowerCase();
-        if (title.includes(input) || summary.includes(input)) {
+        let title = cards[i].querySelector('.entry-title').innerText.toLowerCase();
+        let summary = cards[i].querySelector('.boho-summary').innerText.toLowerCase();
+        let tag = cards[i].querySelector('.boho-pill-label').innerText.toLowerCase();
+        if (title.includes(input) || summary.includes(input) || tag.includes(input)) {
             cards[i].style.display = "";
         } else {
             cards[i].style.display = "none";

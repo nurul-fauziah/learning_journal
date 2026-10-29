@@ -1,78 +1,634 @@
+/* ==========================================================================
+   BOHEMIAN DESIGN SYSTEM — Sunlit Studio & Earthy Botanical
+   Palette: Terracotta, Sage Green, Forest Green, Mustard, Blush, Oat, Aubergine
+   Typography: Fraunces (Groovy Display Serif) & Karla (Warm Readable Sans)
+   ========================================================================== */
+
 :root {
-    --bg-paper: #f4e4bc;
-    --text-brown: #5d4037;
-    --dusty-blue: #78909c;
-    --sage-green: #8d9984;
-    --accent-red: #d7ccc8;
-    --line-color: #cfc2a5;
+    /* Bohemian Palette Tokens (Risograph / Screen-Print Inspired) */
+    --bg-oat: #f3e9da;
+    --bg-card: #fdf8f0;
+    --bg-card-alt: #f6ebd8;
+    --bg-arch-light: #fbeee1;
+
+    --color-terracotta: #c8704f;
+    --color-terracotta-dark: #a95636;
+    --color-terracotta-light: #df8f72;
+
+    --color-sage: #9aa68a;
+    --color-sage-light: #c2cdb7;
+    --color-sage-soft: #e5ece0;
+
+    --color-forest: #3f5b48;
+    --color-forest-dark: #2a3e31;
+
+    --color-mustard: #e0a23b;
+    --color-mustard-light: #f5c873;
+
+    --color-blush: #e8b79a;
+    --color-blush-soft: #f4d9ca;
+
+    --color-aubergine: #4a2c2a;
+    --color-aubergine-dark: #321c1a;
+    --color-aubergine-muted: #735452;
+
+    /* Heatmap Scale: Oat -> Blush -> Mustard -> Terracotta -> Forest */
+    --heat-0: #e7dac7;
+    --heat-1: #e8b79a;
+    --heat-2: #e0a23b;
+    --heat-3: #c8704f;
+    --heat-4: #3f5b48;
+
+    /* Borders & Outlines */
+    --border-boho: #4a2c2a;
+    --border-subtle: #d6c6b0;
+
+    /* Typography */
+    --font-display: 'Fraunces', Georgia, serif;
+    --font-body: 'Karla', system-ui, sans-serif;
 }
 
-body {
-    background-color: var(--bg-paper);
-    background-image: linear-gradient(var(--line-color) 1px, transparent 1px);
-    background-size: 100% 2rem; /* Efek garis buku tulis */
-    color: var(--text-brown);
-    font-family: 'Georgia', serif; /* Font klasik */
-    line-height: 2rem; /* Menyesuaikan garis */
-}
-
-/* Custom Card ala Kertas Notes */
-.vintage-card {
-    background: #fffdf5;
-    border: 1px solid #dcdcdc;
-    box-shadow: 3px 3px 5px rgba(0,0,0,0.1);
-    padding: 20px;
-    margin-bottom: 20px;
-    border-radius: 2px;
+/* Base Body with Paper Texture */
+body.boho-body {
+    background-color: var(--bg-oat);
+    color: var(--color-aubergine);
+    font-family: var(--font-body);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
     position: relative;
+    -webkit-font-smoothing: antialiased;
 }
 
-/* Efek selotip di atas kertas */
-.vintage-card::before {
-    content: '';
+/* Subtle SVG Paper Grain Overlay */
+.boho-grain-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    filter: url(#boho-grain);
+    opacity: 0.05;
+    pointer-events: none;
+    z-index: 100;
+}
+
+/* Matisse-Style Cut-Out Leaves at Screen Margins */
+.boho-page-leaf {
+    position: fixed;
+    z-index: 1;
+    pointer-events: none;
+    transition: transform 0.3s ease;
+}
+.boho-leaf-top-right {
+    top: 0;
+    right: 0;
+}
+.boho-leaf-bottom-left {
+    bottom: 0;
+    left: 0;
+}
+
+@media (max-width: 991px) {
+    .boho-page-leaf {
+        display: none;
+    }
+}
+
+/* Typography Hierarchy */
+h1, h2, h3, h4, h5, h6,
+.boho-headline {
+    font-family: var(--font-display);
+    color: var(--color-aubergine);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+}
+
+.boho-subheading {
+    font-family: var(--font-display);
+    color: var(--color-aubergine);
+    font-weight: 700;
+}
+
+/* Header & Bohemian Studio Navbar */
+.boho-header {
+    background-color: var(--bg-card);
+    border-bottom: 2.5px solid var(--border-boho);
+    box-shadow: 0 4px 0px rgba(74, 44, 42, 0.06);
+    position: relative;
+    z-index: 50;
+}
+
+.boho-navbar {
+    padding: 0.9rem 0;
+}
+
+.boho-navbar .brand-title {
+    font-family: var(--font-display);
+    font-size: 1.55rem;
+    font-weight: 800;
+    color: var(--color-aubergine);
+    letter-spacing: -0.02em;
+}
+
+.boho-brand-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.boho-nav-link {
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--color-aubergine) !important;
+    padding: 0.4rem 0.6rem !important;
+    position: relative;
+    transition: color 0.2s ease, transform 0.15s ease;
+}
+
+.boho-nav-link:hover,
+.boho-nav-link:focus-visible {
+    color: var(--color-terracotta) !important;
+    transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   BOHEMIAN ARCH CARDS & PEBBLE BLOBS
+   ========================================================================== */
+.boho-card {
+    background-color: var(--bg-card);
+    border: 2.5px solid var(--border-boho);
+    border-radius: 24px;
+    box-shadow: 4px 4px 0px var(--border-boho);
+    position: relative;
+    z-index: 10;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.boho-card:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px var(--border-boho);
+}
+
+/* Arched Top Hero Card */
+.boho-hero-card {
+    border-radius: 48px 48px 24px 24px;
+}
+
+/* Arched Window Reflection Card */
+.boho-arch-card {
+    border-radius: 100px 100px 24px 24px;
+    background-color: var(--bg-arch-light);
+}
+
+/* Organic Pebble Background Blob */
+.boho-blob-shape {
     position: absolute;
-    top: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100px;
-    height: 25px;
-    background-color: rgba(255, 255, 255, 0.4);
-    border-left: 1px dashed rgba(0,0,0,0.1);
-    border-right: 1px dashed rgba(0,0,0,0.1);
-    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    pointer-events: none;
+    z-index: 0;
+    border-radius: 54% 46% 70% 30% / 49% 60% 40% 51%;
+    background-color: var(--color-blush-soft);
+    opacity: 0.45;
 }
 
-h1, h2, h3 {
-    font-family: 'Courier New', monospace; /* Ala mesin tik */
-    font-weight: bold;
-    color: #3e2723;
+.boho-blob-hero {
+    width: 260px;
+    height: 180px;
+    top: -30px;
+    right: -40px;
 }
 
-.btn-vintage {
-    background-color: var(--dusty-blue);
-    color: white;
-    border: none;
-    font-family: 'Courier New', monospace;
-    letter-spacing: 1px;
-    box-shadow: 2px 2px 0px #455a64;
-    transition: transform 0.1s;
+/* Radiating Half-Sun Hero Motif */
+.boho-hero-sun {
+    position: relative;
+    z-index: 2;
 }
 
-.btn-vintage:active {
+.boho-sun-svg {
+    transition: transform 0.5s ease;
+}
+.boho-hero-card:hover .boho-sun-svg {
+    transform: scale(1.05);
+}
+
+/* Greeting Headline & Quote */
+.dashboard-greeting .boho-headline {
+    color: var(--color-aubergine);
+    font-size: 2.25rem;
+}
+
+.boho-quote {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.15rem;
+    color: var(--color-aubergine-muted);
+    max-width: 520px;
+    line-height: 1.45;
+}
+
+.boho-badge-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background-color: var(--color-mustard-light);
+    border: 1.5px solid var(--border-boho);
+    border-radius: 50%;
+    color: var(--color-aubergine);
+}
+
+/* ==========================================================================
+   ARCHED STATISTICS TRIPTYCH
+   ========================================================================== */
+.boho-stats-row {
+    position: relative;
+    z-index: 2;
+}
+
+.boho-stat-arch {
+    background-color: var(--bg-card-alt);
+    border: 2px solid var(--border-boho);
+    border-radius: 36px 36px 14px 14px;
+    box-shadow: 2px 2px 0px var(--border-boho);
+    transition: transform 0.2s ease;
+}
+
+.boho-stat-arch:hover {
+    transform: translateY(-2px);
+}
+
+.boho-stat-arch-forest {
+    background-color: var(--color-sage-soft);
+}
+
+.boho-stat-arch-sun {
+    background-color: #fbf0d8;
+}
+
+.stat-number {
+    font-family: var(--font-display);
+    font-size: 2.75rem;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 0.35rem;
+}
+
+.stat-due {
+    color: var(--color-terracotta);
+}
+
+.stat-total {
+    color: var(--color-forest);
+}
+
+.stat-streak {
+    color: var(--color-mustard);
+}
+
+.streak-sun-svg {
+    animation: boho-pulse 4s infinite ease-in-out;
+}
+
+@keyframes boho-pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.12); }
+}
+
+.boho-stat-label {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--color-aubergine-muted);
+}
+
+/* ==========================================================================
+   CHUNKY BOHEMIAN BUTTONS (Flat Print Shadow)
+   ========================================================================== */
+.btn-boho-primary,
+.btn-boho-secondary {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    border-radius: 999px;
+    border: 2.5px solid var(--border-boho);
+    padding: 0.85rem 1.75rem;
+    position: relative;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 4px 4px 0px var(--border-boho);
+    transition: transform 0.12s ease, box-shadow 0.12s ease, background-color 0.2s ease;
+}
+
+.btn-boho-primary {
+    background-color: var(--color-terracotta);
+    color: #ffffff !important;
+}
+
+.btn-boho-primary:hover {
+    background-color: var(--color-terracotta-dark);
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px var(--border-boho);
+}
+
+.btn-boho-primary:active {
     transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0px var(--border-boho);
+}
+
+.btn-boho-primary:focus-visible,
+.btn-boho-secondary:focus-visible {
+    outline: 2px dashed var(--color-aubergine);
+    outline-offset: 4px;
+}
+
+.btn-boho-secondary {
+    background-color: var(--bg-card);
+    color: var(--color-aubergine) !important;
+}
+
+.btn-boho-secondary:hover {
+    background-color: var(--bg-card-alt);
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px var(--border-boho);
+}
+
+.btn-boho-secondary:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0px var(--border-boho);
+}
+
+/* ==========================================================================
+   PEBBLE & LEAF BUD HEATMAP (Oat -> Blush -> Mustard -> Terracotta -> Forest)
+   ========================================================================== */
+.boho-heatmap-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    background-color: var(--bg-card-alt);
+    border: 2px solid var(--border-boho);
+    border-radius: 16px;
+    padding: 16px;
+}
+
+.boho-pebble {
+    width: 20px;
+    height: 20px;
+    border-radius: 9px 4px 9px 4px; /* Organic leaf bud shape */
+    border: 1.5px solid rgba(74, 44, 42, 0.25);
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.boho-pebble:hover,
+.boho-pebble:focus-visible {
+    transform: scale(1.3) rotate(-5deg);
+    box-shadow: 2px 2px 0px var(--border-boho);
+    border-color: var(--border-boho);
+    z-index: 5;
+}
+
+.legend-swatch {
+    width: 14px;
+    height: 14px;
+    display: inline-block;
+    cursor: default;
+}
+.legend-swatch:hover {
+    transform: none;
     box-shadow: none;
 }
 
-/* Alarm Overlay */
+.legend-label {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-aubergine-muted);
+}
+
+/* ==========================================================================
+   REFLECTION CARD & INPUTS
+   ========================================================================== */
+.boho-pill-label {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    background-color: var(--color-blush);
+    color: var(--color-aubergine);
+    border: 1.5px solid var(--border-boho);
+    border-radius: 999px;
+    padding: 0.2rem 0.65rem;
+}
+
+.reflection-prompt {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--color-aubergine-muted);
+    line-height: 1.4;
+}
+
+.boho-textarea,
+.boho-input {
+    background-color: #ffffff;
+    border: 2px solid var(--border-boho);
+    border-radius: 12px;
+    color: var(--color-aubergine);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    padding: 0.65rem 0.9rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.boho-textarea:focus,
+.boho-input:focus {
+    background-color: #ffffff;
+    border-color: var(--color-terracotta);
+    box-shadow: 3px 3px 0px var(--border-boho);
+    color: var(--color-aubergine);
+    outline: none;
+}
+
+.boho-helper-text {
+    font-size: 0.9375rem;
+    color: var(--color-aubergine-muted);
+    line-height: 1.45;
+}
+
+.boho-tiny-status {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-forest);
+}
+
+.boho-input-group .boho-input-addon {
+    background-color: var(--bg-card-alt);
+    border: 2px solid var(--border-boho);
+    border-left: none;
+    border-radius: 0 12px 12px 0;
+    font-family: var(--font-body);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.75rem;
+    color: var(--color-aubergine);
+}
+
+/* ==========================================================================
+   VAULT & REVIEW SPECIFICS
+   ========================================================================== */
+.boho-due-badge {
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--color-terracotta-dark);
+}
+
+.boho-summary {
+    font-size: 0.95rem;
+    color: var(--color-aubergine-muted);
+    line-height: 1.5;
+}
+
+.border-top-boho {
+    border-top: 1.5px dashed var(--border-subtle);
+}
+
+.boho-meta {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-aubergine-muted);
+}
+
+.boho-field-label {
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--color-aubergine);
+    margin-bottom: 0.4rem;
+}
+
+.boho-revelation-box {
+    background-color: var(--bg-card-alt);
+    border: 2px solid var(--border-boho);
+    border-radius: 14px;
+}
+
+.boho-hr {
+    border-top: 2px dashed var(--border-subtle);
+    opacity: 0.7;
+}
+
+/* Review Session Rating Buttons */
+.btn-boho-rate {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border-radius: 999px;
+    border: 2px solid var(--border-boho);
+    padding: 0.5rem 0.75rem;
+    background-color: var(--bg-card);
+    box-shadow: 2px 2px 0px var(--border-boho);
+    transition: all 0.15s ease;
+}
+
+.rate-hard { color: var(--color-terracotta-dark); }
+.rate-hard:hover { background-color: var(--color-blush); transform: translateY(-1px); }
+
+.rate-medium { color: var(--color-mustard); }
+.rate-medium:hover { background-color: var(--color-mustard-light); transform: translateY(-1px); }
+
+.rate-easy { color: var(--color-forest); }
+.rate-easy:hover { background-color: var(--color-sage-light); transform: translateY(-1px); }
+
+/* ==========================================================================
+   ALARM OVERLAY & BOHEMIAN ARCH MODAL
+   ========================================================================== */
 #alarm-overlay {
     display: none;
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(62, 39, 35, 0.95);
     z-index: 9999;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    color: #fff;
-    text-align: center;
+    padding: 1.5rem;
+}
+
+.alarm-backdrop {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(74, 44, 42, 0.75);
+    backdrop-filter: blur(3px);
+}
+
+.boho-arch-modal {
+    position: relative;
+    z-index: 10000;
+    width: 100%;
+    max-width: 500px;
+    border-radius: 120px 120px 24px 24px;
+    background-color: var(--bg-card);
+}
+
+.boho-prompt-alcove {
+    background-color: var(--bg-card-alt);
+    border: 2px solid var(--border-boho);
+    border-radius: 16px;
+}
+
+.boho-prompt-alcove h4 {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    color: var(--color-aubergine);
+}
+
+.boho-feedback-text {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--color-terracotta);
+}
+
+/* Footer */
+.boho-footer {
+    border-top: 2px solid var(--border-boho);
+    background-color: var(--bg-card);
+}
+.boho-colophon {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--color-aubergine-muted);
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
 }
