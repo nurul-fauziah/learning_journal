@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row justify-content-center py-4">
+    <div class="col-md-7 col-lg-5">
+        <article class="boho-card boho-arch-card p-4 p-md-5 position-relative text-center">
+            <!-- Studio Sunburst Emblem -->
+            <div class="mb-3" aria-hidden="true">
+                <svg viewBox="0 0 100 50" width="100" height="50" fill="none">
+                    <path d="M50 48 A24 24 0 0 1 26 48 Z" fill="var(--color-mustard)"/>
+                    <line x1="50" y1="16" x2="50" y2="6" stroke="var(--color-terracotta)" stroke-width="2.5" stroke-linecap="round"/>
+                    <line x1="32" y1="22" x2="24" y2="14" stroke="var(--color-terracotta)" stroke-width="2.5" stroke-linecap="round"/>
+                    <line x1="68" y1="22" x2="76" y2="14" stroke="var(--color-terracotta)" stroke-width="2.5" stroke-linecap="round"/>
+                    <line x1="20" y1="36" x2="10" y2="34" stroke="var(--color-terracotta)" stroke-width="2.5" stroke-linecap="round"/>
+                    <line x1="80" y1="36" x2="90" y2="34" stroke="var(--color-terracotta)" stroke-width="2.5" stroke-linecap="round"/>
+                </svg>
+            </div>
+
+            <span class="boho-pill-label mb-2 d-inline-block">STUDIO AUTHENTICATION</span>
+            <h1 class="h2 boho-headline mb-1">Welcome Back</h1>
+            <p class="boho-helper-text mb-4">Enter your credentials to unlock your learning sanctuary</p>
+
+            {% if error %}
+            <div class="alert alert-danger py-2 px-3 mb-3 border-2 text-start" style="border-radius: 12px; background-color: var(--color-blush-soft); border-color: var(--color-terracotta); color: var(--color-aubergine);">
+                <strong>Notice:</strong> {{ error }}
+            </div>
+            {% endif %}
+
+            {% if message %}
+            <div class="alert alert-success py-2 px-3 mb-3 border-2 text-start" style="border-radius: 12px; background-color: var(--color-sage-soft); border-color: var(--color-forest); color: var(--color-forest-dark);">
+                {{ message }}
+            </div>
+            {% endif %}
+
+            <form action="{{ url_for('login') }}" method="POST" class="text-start">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                <input type="hidden" name="next" value="{{ next_url or '' }}"/>
+
+                <div class="mb-3">
+                    <label class="form-label boho-field-label">Username</label>
+                    <input type="text" name="username" class="form-control boho-input" placeholder="e.g. learner" required autocomplete="username" autofocus>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label boho-field-label">Password</label>
+                    <input type="password" name="password" class="form-control boho-input" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" required autocomplete="current-password">
+                </div>
+
+                <div class="mb-4 form-check text-start">
+                    <input type="checkbox" name="remember" class="form-check-input" id="rememberMe" style="border-color: var(--border-boho);" checked>
+                    <label class="form-check-label boho-meta" for="rememberMe">Keep Studio Session Active (30 Days)</label>
+                </div>
+
+                <button type="submit" class="btn btn-boho-primary w-100 py-3 mb-3">
+                    <span>Unlock Studio</span>
+                </button>
+            </form>
+
+            <div class="pt-3 border-top-boho">
+                <p class="boho-meta mb-0">
+                    New to this studio? <a href="{{ url_for('register') }}" class="fw-bold" style="color: var(--color-terracotta);">Create Account</a>
+                </p>
+            </div>
+        </article>
+    </div>
+</div>
+{% endblock %}
+
