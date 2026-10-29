@@ -1,78 +1,635 @@
+/* ==========================================================================
+   ACANTHUS DESIGN SYSTEM — Bibliotheca & Botanical Manuscript
+   Palette: Indigo Navy, Sage Green, Antique Gold, Dusty Rose, Cream Paper
+   Typography: Cormorant Garamond & EB Garamond
+   ========================================================================== */
+
 :root {
-    --bg-paper: #f4e4bc;
-    --text-brown: #5d4037;
-    --dusty-blue: #78909c;
-    --sage-green: #8d9984;
-    --accent-red: #d7ccc8;
-    --line-color: #cfc2a5;
+    /* Palette Tokens */
+    --color-navy: #1f2a44;
+    --color-navy-deep: #141b2c;
+    --color-navy-soft: #2d3b5b;
+    --color-sage: #556f50;
+    --color-sage-deep: #3c5238;
+    --color-sage-muted: #799175;
+    --color-sage-light: #e5ece3;
+    --color-gold: #c19b4e;
+    --color-gold-deep: #9d7b32;
+    --color-gold-muted: #7d6023;
+    --color-gold-glow: rgba(193, 155, 78, 0.22);
+    --color-rose: #b27371;
+    --color-rose-deep: #8c4e4c;
+
+    /* Ground / Canvas */
+    --bg-paper: #f6f1e7;
+    --bg-card: #fcf9f2;
+    --bg-card-inner: #f1ebd8;
+    --bg-card-highlight: #fbf6ec;
+
+    /* Ink & Contrast */
+    --text-ink: #1a2233;
+    --text-ink-secondary: #4a5468;
+    --text-ink-muted: #6b7588;
+
+    /* Borders & Cartouche Frames */
+    --border-cartouche: #c9b48c;
+    --border-cartouche-inner: #ded2ba;
+    --border-hairline: #e6dcbe;
+
+    /* Heatmap Levels (Cream -> Sage -> Deep Olive/Gold) */
+    --heat-0: #ece4d2;
+    --heat-1: #a9c0a6;
+    --heat-2: #5f7c5a;
+    --heat-3: #2c4a2a;
+
+    /* Typography */
+    --font-heading: 'Cormorant Garamond', Garamond, 'Times New Roman', serif;
+    --font-body: 'EB Garamond', Georgia, serif;
 }
 
-body {
+/* Base Canvas & Background Repeat Pattern (<6% opacity William Morris Foliage) */
+body.acanthus-body {
     background-color: var(--bg-paper);
-    background-image: linear-gradient(var(--line-color) 1px, transparent 1px);
-    background-size: 100% 2rem; /* Efek garis buku tulis */
-    color: var(--text-brown);
-    font-family: 'Georgia', serif; /* Font klasik */
-    line-height: 2rem; /* Menyesuaikan garis */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='%23685635' fill-opacity='0.045'%3E%3Cpath d='M60 12c-8 12-22 18-36 14 10 12 10 28 0 40 16-2 30 6 36 20 6-14 20-22 36-20-10-12-10-28 0-40-14 4-28-2-36-14zM24 84c-6 8-16 12-24 10 8 8 8 20 0 28 12-2 22 4 24 14 4-10 14-16 24-14-8-8-8-20 0-28-8 2-18-2-24-10zM96 84c-6 8-16 12-24 10 8 8 8 20 0 28 12-2 22 4 24 14 4-10 14-16 24-14-8-8-8-20 0-28-8 2-18-2-24-10z'/%3E%3Ccircle cx='60' cy='60' r='3'/%3E%3C/g%3E%3C/svg%3E");
+    color: var(--text-ink);
+    font-family: var(--font-body);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    position: relative;
+    -webkit-font-smoothing: antialiased;
 }
 
-/* Custom Card ala Kertas Notes */
-.vintage-card {
-    background: #fffdf5;
-    border: 1px solid #dcdcdc;
-    box-shadow: 3px 3px 5px rgba(0,0,0,0.1);
-    padding: 20px;
-    margin-bottom: 20px;
-    border-radius: 2px;
+/* Classical Headings */
+h1, h2, h3, h4, h5, h6,
+.serif-heading {
+    font-family: var(--font-heading);
+    color: var(--color-navy);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+}
+
+/* Page Corner Flourishes (Desktop Engraved Accents) */
+.page-corner {
+    position: fixed;
+    z-index: 99;
+    pointer-events: none;
+}
+.page-corner-tl { top: 12px; left: 12px; }
+.page-corner-tr { top: 12px; right: 12px; }
+
+@media (max-width: 991px) {
+    .page-corner { display: none; }
+}
+
+/* Header & Navigation Bar */
+.acanthus-header {
+    background-color: var(--color-navy-deep);
+    border-bottom: 2px solid var(--color-gold);
+    box-shadow: 0 4px 12px rgba(20, 27, 44, 0.15);
+    position: relative;
+    z-index: 50;
+}
+
+.acanthus-navbar {
+    padding: 0.85rem 0;
+}
+
+.acanthus-navbar .brand-title {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--bg-card);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+}
+
+.acanthus-nav-link {
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+    font-variant-caps: all-small-caps;
+    letter-spacing: 0.14em;
+    color: #ded6c2 !important;
+    position: relative;
+    padding: 0.4rem 0 !important;
+    transition: color 0.2s ease;
+}
+
+.acanthus-nav-link:hover,
+.acanthus-nav-link:focus-visible {
+    color: var(--color-gold) !important;
+}
+
+.acanthus-nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: var(--color-gold);
+    transition: width 0.25s ease;
+}
+
+.acanthus-nav-link:hover::after,
+.acanthus-nav-link:focus-visible::after {
+    width: 100%;
+}
+
+.acanthus-nav-border {
+    height: 3px;
+    background: linear-gradient(90deg, 
+        transparent 0%, 
+        var(--color-gold-deep) 15%, 
+        var(--color-gold) 50%, 
+        var(--color-gold-deep) 85%, 
+        transparent 100%);
+    opacity: 0.8;
+}
+
+/* ==========================================================================
+   CARTOUCHE CARD FRAME (Double-line engraved plate aesthetic)
+   ========================================================================== */
+.cartouche-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-cartouche);
+    outline: 1px solid var(--border-cartouche-inner);
+    outline-offset: -6px;
+    box-shadow: 
+        0 2px 4px rgba(50, 40, 20, 0.04),
+        0 6px 18px rgba(31, 42, 68, 0.06);
+    position: relative;
+    transition: box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.cartouche-card:hover {
+    box-shadow: 
+        0 4px 8px rgba(50, 40, 20, 0.06),
+        0 10px 24px rgba(31, 42, 68, 0.09);
+    border-color: var(--color-gold);
+}
+
+/* Symmetrical Cartouche Corner Accents */
+.cartouche-card::before,
+.cartouche-card::after {
+    content: '❖';
+    position: absolute;
+    font-size: 8px;
+    color: var(--color-gold);
+    line-height: 1;
+    pointer-events: none;
+}
+.cartouche-card::before { top: 9px; left: 9px; }
+.cartouche-card::after { bottom: 9px; right: 9px; }
+
+/* Dashboard Typography & Salutation */
+.dashboard-greeting-header .serif-heading {
+    color: var(--color-navy);
+    font-size: 1.85rem;
+}
+
+.acanthus-quote {
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-size: 1.15rem;
+    color: var(--text-ink-secondary);
+    padding-left: 1.25rem;
+    border-left: 2px solid var(--color-gold);
+    line-height: 1.45;
+}
+
+.acanthus-icon-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background-color: var(--bg-card-inner);
+    border: 1px solid var(--border-cartouche);
+    color: var(--color-navy);
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+/* Ornate Separator */
+.ornate-separator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+.ornate-separator .sep-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border-cartouche), transparent);
+}
+.ornate-separator .sep-gem {
+    font-size: 11px;
+    color: var(--color-gold);
+}
+
+/* ==========================================================================
+   STATISTICS TRIPTYCH (Dignified Classical Columns)
+   ========================================================================== */
+.stats-triptych {
+    background-color: var(--bg-card-inner);
+    border: 1px solid var(--border-cartouche-inner);
+    padding: 0.5rem 0;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.stat-cell {
     position: relative;
 }
 
-/* Efek selotip di atas kertas */
-.vintage-card::before {
-    content: '';
-    position: absolute;
-    top: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100px;
-    height: 25px;
-    background-color: rgba(255, 255, 255, 0.4);
-    border-left: 1px dashed rgba(0,0,0,0.1);
-    border-right: 1px dashed rgba(0,0,0,0.1);
-    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+.stat-cell-middle {
+    border-left: 1px solid var(--border-cartouche);
+    border-right: 1px solid var(--border-cartouche);
 }
 
-h1, h2, h3 {
-    font-family: 'Courier New', monospace; /* Ala mesin tik */
-    font-weight: bold;
-    color: #3e2723;
+.stat-number {
+    font-family: var(--font-heading);
+    font-size: 2.75rem;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 0.35rem;
+    font-variant-numeric: oldstyle-nums tabular-nums;
 }
 
-.btn-vintage {
-    background-color: var(--dusty-blue);
-    color: white;
-    border: none;
-    font-family: 'Courier New', monospace;
-    letter-spacing: 1px;
-    box-shadow: 2px 2px 0px #455a64;
-    transition: transform 0.1s;
+.stat-due {
+    color: var(--color-rose-deep);
 }
 
-.btn-vintage:active {
-    transform: translate(2px, 2px);
+.stat-total {
+    color: var(--color-navy);
+}
+
+.stat-streak {
+    min-height: 2.75rem;
+}
+
+.stat-label {
+    font-family: var(--font-heading);
+    font-size: 0.8125rem;
+    font-variant-caps: all-small-caps;
+    letter-spacing: 0.16em;
+    color: var(--text-ink-secondary);
+    font-weight: 600;
+}
+
+/* ==========================================================================
+   CARTOUCHE BUTTONS (Gilded Library Plaque Style)
+   ========================================================================== */
+.btn-cartouche,
+.btn-cartouche-primary,
+.btn-cartouche-secondary {
+    font-family: var(--font-heading);
+    font-variant-caps: all-small-caps;
+    letter-spacing: 0.14em;
+    font-size: 1.05rem;
+    font-weight: 600;
+    border-radius: 0;
+    padding: 0.65rem 1.4rem;
+    position: relative;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Primary Button: Deep Navy with Gilded Gold Border */
+.btn-cartouche-primary {
+    background-color: var(--color-navy);
+    color: #f7f3e8 !important;
+    border: 1px solid var(--color-gold);
+    outline: 1px solid var(--color-gold-deep);
+    outline-offset: -4px;
+    box-shadow: 0 2px 6px rgba(20, 27, 44, 0.2);
+}
+
+.btn-cartouche-primary:hover {
+    background-color: var(--color-navy-deep);
+    color: #ffffff !important;
+    box-shadow: 
+        0 4px 12px rgba(20, 27, 44, 0.3),
+        0 0 10px var(--color-gold-glow);
+    border-color: #d6b46a;
+    transform: translateY(-1px);
+}
+
+.btn-cartouche-primary:focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 2px;
+}
+
+/* Secondary Button: Parchment Cartouche */
+.btn-cartouche-secondary {
+    background-color: var(--bg-card);
+    color: var(--color-navy) !important;
+    border: 1px solid var(--border-cartouche);
+    outline: 1px solid var(--border-cartouche-inner);
+    outline-offset: -3px;
+}
+
+.btn-cartouche-secondary:hover {
+    background-color: var(--bg-card-inner);
+    color: var(--color-navy-deep) !important;
+    border-color: var(--color-gold);
+}
+
+/* ==========================================================================
+   30-DAY HEATMAP (Cream -> Sage -> Deep Olive Acanthus Scale)
+   ========================================================================== */
+.heatmap-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    background-color: var(--bg-card-inner);
+    border: 1px solid var(--border-hairline);
+    padding: 14px;
+    justify-content: flex-start;
+}
+
+.heatmap-cell {
+    width: 20px;
+    height: 20px;
+    border-radius: 3px;
+    border: 1px solid rgba(80, 70, 45, 0.15);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    cursor: pointer;
+}
+
+.heatmap-cell:hover,
+.heatmap-cell:focus-visible {
+    transform: scale(1.22);
+    box-shadow: 0 2px 6px rgba(31, 42, 68, 0.25);
+    outline: 1px solid var(--color-gold);
+    z-index: 2;
+}
+
+.legend-swatch {
+    width: 14px;
+    height: 14px;
+    display: inline-block;
+    cursor: default;
+}
+.legend-swatch:hover {
+    transform: none;
     box-shadow: none;
 }
 
-/* Alarm Overlay */
+.legend-label {
+    font-family: var(--font-heading);
+    font-size: 0.8rem;
+    font-variant-caps: all-small-caps;
+    letter-spacing: 0.1em;
+    color: var(--text-ink-muted);
+}
+
+/* ==========================================================================
+   RIGHT COLUMN CARTOUCHE CARDS (Reflection & Reminder)
+   ========================================================================== */
+.reflection-card {
+    background-color: #f7f9f5;
+    border-color: #b7cbaf;
+}
+
+.reflection-prompt {
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--text-ink-secondary);
+    line-height: 1.4;
+}
+
+/* Custom Inscription Textarea & Inputs */
+.acanthus-input,
+.acanthus-textarea {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-cartouche);
+    color: var(--text-ink);
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    border-radius: 0;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.acanthus-textarea {
+    border-style: solid;
+    background-image: repeating-linear-gradient(transparent, transparent 31px, var(--border-hairline) 31px, var(--border-hairline) 32px);
+    line-height: 32px;
+    padding: 8px 12px;
+}
+
+.acanthus-input:focus,
+.acanthus-textarea:focus {
+    background-color: #ffffff;
+    border-color: var(--color-gold);
+    box-shadow: 0 0 0 3px var(--color-gold-glow);
+    color: var(--text-ink);
+    outline: none;
+}
+
+.acanthus-helper-text {
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    color: var(--text-ink-muted);
+    line-height: 1.45;
+}
+
+.acanthus-input-group .acanthus-input-addon {
+    background-color: var(--bg-card-inner);
+    border: 1px solid var(--border-cartouche);
+    border-left: none;
+    font-family: var(--font-heading);
+    font-variant-caps: all-small-caps;
+    letter-spacing: 0.1em;
+    color: var(--text-ink-secondary);
+    font-size: 0.9rem;
+}
+
+/* ==========================================================================
+   VAULT & REVIEW SPECIFIC COMPONENT STYLING
+   ========================================================================== */
+.acanthus-tag {
+    font-family: var(--font-heading);
+    font-variant-caps: all-small-caps;
+    letter-spacing: 0.12em;
+    font-size: 0.8125rem;
+    color: var(--color-navy);
+    background-color: var(--bg-card-inner);
+    border: 1px solid var(--border-cartouche);
+    padding: 0.2rem 0.6rem;
+    font-weight: 600;
+}
+
+.acanthus-review-due {
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    color: var(--text-ink-muted);
+}
+
+.acanthus-summary {
+    font-size: 0.95rem;
+    color: var(--text-ink-secondary);
+    line-height: 1.5;
+}
+
+.border-top-cartouche {
+    border-top: 1px solid var(--border-hairline);
+    padding-top: 0.75rem;
+}
+
+.acanthus-label {
+    font-family: var(--font-heading);
+    font-variant-caps: all-small-caps;
+    letter-spacing: 0.1em;
+    font-size: 0.85rem;
+    color: var(--text-ink-muted);
+}
+
+.acanthus-glyph {
+    color: var(--color-gold);
+}
+
+.acanthus-field-label {
+    font-family: var(--font-heading);
+    font-variant-caps: all-small-caps;
+    letter-spacing: 0.12em;
+    font-size: 0.9375rem;
+    color: var(--color-navy);
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+}
+
+/* Review Session Flashcard Plaque */
+.flashcard {
+    background-color: var(--bg-card);
+}
+
+.acanthus-revelation-box {
+    background-color: var(--bg-card-inner);
+    border: 1px solid var(--border-cartouche);
+    border-left: 3px solid var(--color-sage);
+}
+
+.btn-cartouche-rate {
+    font-family: var(--font-heading);
+    font-variant-caps: all-small-caps;
+    letter-spacing: 0.1em;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: 0;
+    padding: 0.5rem 0.75rem;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-cartouche);
+    transition: all 0.2s ease;
+}
+
+.rate-hard { color: var(--color-rose-deep); }
+.rate-hard:hover { background-color: #f7ebea; border-color: var(--color-rose); }
+
+.rate-medium { color: var(--color-gold-muted); }
+.rate-medium:hover { background-color: #faf4e6; border-color: var(--color-gold); }
+
+.rate-easy { color: var(--color-sage-deep); }
+.rate-easy:hover { background-color: #eff5ee; border-color: var(--color-sage); }
+
+/* ==========================================================================
+   ALARM OVERLAY (Victorian Horologe / Recollection Lock)
+   ========================================================================== */
 #alarm-overlay {
     display: none;
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(62, 39, 35, 0.95);
     z-index: 9999;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    color: #fff;
-    text-align: center;
+    padding: 1.5rem;
+}
+
+.alarm-backdrop {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(20, 27, 44, 0.88);
+    backdrop-filter: blur(2px);
+}
+
+.alarm-modal {
+    position: relative;
+    z-index: 10000;
+    width: 100%;
+    max-width: 520px;
+    background-color: var(--bg-card);
+}
+
+.alarm-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-heading);
+    font-variant-caps: all-small-caps;
+    letter-spacing: 0.16em;
+    font-size: 0.875rem;
+    color: var(--color-gold-deep);
+    font-weight: 600;
+}
+
+.alarm-title {
+    font-size: 1.85rem;
+    color: var(--color-navy);
+}
+
+.alarm-subtitle {
+    font-size: 1rem;
+    color: var(--text-ink-secondary);
+}
+
+.alarm-prompt-frame {
+    background-color: var(--bg-card-inner);
+    border: 1px solid var(--border-cartouche);
+    border-left: 3px solid var(--color-gold);
+}
+
+.alarm-prompt-frame h4 {
+    font-size: 1.25rem;
+    color: var(--color-navy);
+}
+
+.alarm-feedback-text {
+    font-family: var(--font-heading);
+    font-style: italic;
+    color: var(--color-rose-deep);
+    font-size: 1.05rem;
+}
+
+/* Footer & Colophon */
+.acanthus-footer {
+    border-top: 1px solid var(--border-hairline);
+}
+.acanthus-colophon {
+    font-family: var(--font-heading);
+    font-variant-caps: all-small-caps;
+    letter-spacing: 0.2em;
+    font-size: 0.875rem;
+    color: var(--text-ink-muted);
+}
+
+/* ==========================================================================
+   ACCESSIBILITY & PREFERS-REDUCED-MOTION
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
 }

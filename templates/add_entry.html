@@ -1,28 +1,38 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="row justify-content-center">
-    <div class="col-md-8">
-        <div class="vintage-card">
-            <h2 class="mb-4 text-center">📝 New Learning Entry</h2>
+    <div class="col-md-9 col-lg-8">
+        <article class="cartouche-card p-4 p-md-5">
+            <header class="text-center mb-4">
+                <div class="cartouche-ornament-center mb-2" aria-hidden="true">
+                    <svg viewBox="0 0 160 20" width="160" height="20" fill="none">
+                        <path d="M80,2 C65,8 45,10 10,11 C45,12 65,14 80,18 C95,14 115,12 150,11 C115,10 95,8 80,2 Z" fill="var(--color-gold)" opacity="0.65"/>
+                        <circle cx="80" cy="11" r="2.5" fill="var(--color-gold)"/>
+                    </svg>
+                </div>
+                <h1 class="h2 serif-heading mb-1">New Learning Entry</h1>
+                <p class="acanthus-helper-text">Record and codify a concept into the knowledge vault</p>
+            </header>
+
             <form action="{{ url_for('add_entry') }}" method="POST">
-                <div class="mb-3">
-                    <label class="form-label fw-bold">Title / Question</label>
-                    <input type="text" name="title" class="form-control" placeholder="e.g., What is Polymorphism?" required>
+                <div class="mb-4">
+                    <label class="form-label acanthus-field-label">Title / Fundamental Inquiry</label>
+                    <input type="text" name="title" class="form-control acanthus-input" placeholder="e.g., What is Polymorphism?" required>
                 </div>
 
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label fw-bold">Category</label>
-                        <input list="categories" name="category" class="form-control" placeholder="Type or select..." required>
+                <div class="row g-3 mb-4">
+                    <div class="col-md-6">
+                        <label class="form-label acanthus-field-label">Category</label>
+                        <input list="categories" name="category" class="form-control acanthus-input" placeholder="Select or codify category..." required>
                         <datalist id="categories">
                             {% for cat in categories %}
                             <option value="{{ cat.name }}">
                             {% endfor %}
                         </datalist>
                     </div>
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label fw-bold">Initial Difficulty</label>
-                        <select name="difficulty" class="form-select">
+                    <div class="col-md-6">
+                        <label class="form-label acanthus-field-label">Initial Difficulty</label>
+                        <select name="difficulty" class="form-select acanthus-input">
                             <option value="easy">Easy</option>
                             <option value="medium" selected>Medium</option>
                             <option value="hard">Hard</option>
@@ -30,23 +40,23 @@
                     </div>
                 </div>
 
-                <div class="mb-3">
-                    <label class="form-label fw-bold">Short Summary / Answer (For Alarm)</label>
-                    <input type="text" name="summary" class="form-control" placeholder="Keywords for quick recall..." required>
-                    <small class="text-muted">This will be the answer key for your active alarm.</small>
+                <div class="mb-4">
+                    <label class="form-label acanthus-field-label">Distilled Summary / Key Answer</label>
+                    <input type="text" name="summary" class="form-control acanthus-input" placeholder="Concise keywords for active recollection..." required>
+                    <small class="acanthus-helper-text d-block mt-1">This concise phrase serves as the key for active recollection timers.</small>
                 </div>
 
-                <div class="mb-3">
-                    <label class="form-label fw-bold">Detailed Notes</label>
-                    <textarea name="content" class="form-control" rows="6" placeholder="Deep dive explanations..."></textarea>
+                <div class="mb-4">
+                    <label class="form-label acanthus-field-label">Comprehensive Manuscript Notes</label>
+                    <textarea name="content" class="form-control acanthus-textarea" rows="6" placeholder="In-depth explanations, proofs, and contextual nuances..."></textarea>
                 </div>
 
-                <div class="text-end">
-                    <a href="{{ url_for('vault') }}" class="btn btn-outline-secondary me-2">Cancel</a>
-                    <button type="submit" class="btn btn-vintage px-4">Save to Vault</button>
+                <div class="d-flex justify-content-end align-items-center gap-3 pt-2 border-top-cartouche">
+                    <a href="{{ url_for('vault') }}" class="btn btn-cartouche-secondary">Cancel</a>
+                    <button type="submit" class="btn btn-cartouche-primary px-4">Codify to Vault</button>
                 </div>
             </form>
-        </div>
+        </article>
     </div>
 </div>
 {% endblock %}
